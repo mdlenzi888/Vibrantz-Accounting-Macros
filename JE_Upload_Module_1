@@ -1,0 +1,5351 @@
+Sub OneStream_BS_Rollover_V15()
+'
+' OneStream_BS_Rollover Macro
+'
+
+'
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+
+    Sheets.Add.Name = "ABC"
+    Sheets("ABC").Select
+
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = "='Master Recon'!R[28]C[1]"
+
+    Range("C2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=EOMONTH(DATEVALUE(TEXT((MID(RC[-1],FIND(""M"",RC[-1],1)+1,2)),""00"")&""/01/""&LEFT(RC[-1],4)),0)"
+    
+    Range("C2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+
+    Range("C3").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-1]C,1)"
+    Selection.NumberFormat = "m/d/yyyy"
+    
+    Range("D3").Select
+    ActiveCell.FormulaR1C1 = _
+        "=TEXT(YEAR(RC[-1]),""0000"")&""M""&TEXT(MONTH(RC[-1]),""0"")"
+        
+    Range("D3").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("Master Recon").Select
+    Range("C30").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+    Sheets("ABC").Select
+    
+    Range("C5").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",R[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1),55)&""\""&YEAR(R2C3)&""\""&TEXT(MONTH(R2C3),""00"")&"" ""&YEAR(R2C3)&""\""&RIGHT(LEFT(CELL(""filename"",R[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1), LEN(LEFT(CELL(""filename"",R[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1))-FIND(""C"",LEFT(CELL(""filename"",R" & _
+        "[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1))+1)" & _
+        ""
+        
+    Range("C6").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&TEXT(R2C3,""MMM YYYY"")&"" - ""&LEFT(RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUT" & _
+        "E(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1),FIND(""]"",RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUTE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1))-1)" & _
+        ""
+        
+     
+Dim path As String
+Dim filename As String
+
+path = Range("C5")
+filename = Range("C6")
+ActiveWorkbook.SaveAs filename:=path & filename
+     
+Sheets("ABC").Select
+ActiveWindow.SelectedSheets.Delete
+
+ActiveWorkbook.Save
+
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+
+
+End Sub
+Sub OneStream_BS_Rollover_V15_en_masse()
+'
+' OneStream_BS_Rollover Macro
+'
+
+'
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+
+    Sheets.Add.Name = "ABC"
+    Sheets("ABC").Select
+
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = "='Master Recon'!R[28]C[1]"
+
+    Range("C2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=EOMONTH(DATEVALUE(TEXT((MID(RC[-1],FIND(""M"",RC[-1],1)+1,2)),""00"")&""/01/""&LEFT(RC[-1],4)),0)"
+    
+    Range("C2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+
+    Range("C3").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-1]C,1)"
+    Selection.NumberFormat = "m/d/yyyy"
+    
+    Range("D3").Select
+    ActiveCell.FormulaR1C1 = _
+       "=TEXT(YEAR(RC[-1]),""0000"")&""M""&TEXT(MONTH(RC[-1]),""0"")"
+        
+    Range("D3").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("Master Recon").Select
+    Range("C30").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+    Sheets("ABC").Select
+    
+    Range("C5").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",R[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1),55)&""\""&YEAR(R2C3)&""\""&TEXT(MONTH(R2C3),""00"")&"" ""&YEAR(R2C3)&""\""&RIGHT(LEFT(CELL(""filename"",R[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1), LEN(LEFT(CELL(""filename"",R[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1))-FIND(""C"",LEFT(CELL(""filename"",R" & _
+        "[-4]C[-2]),FIND(""["",CELL(""filename"",R[-4]C[-2]))-1))+1)" & _
+        ""
+        
+    Range("C6").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&TEXT(R2C3,""MMM YYYY"")&"" - ""&LEFT(RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUT" & _
+        "E(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1),FIND(""]"",RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUTE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1))-1)" & _
+        ""
+        
+     
+Dim path As String
+Dim filename As String
+
+path = Range("C5")
+filename = Range("C6")
+ActiveWorkbook.SaveAs filename:=path & filename
+     
+Sheets("ABC").Select
+ActiveWindow.SelectedSheets.Delete
+
+ActiveWorkbook.Save
+
+ActiveWorkbook.Close False
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+
+
+End Sub
+
+
+Sub IFS_Name_Update_V15()
+
+Application.ScreenUpdating = False
+
+Sheets("JE").Select
+
+Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=R[3]C&"" - ""&LEFT(R[7]C[3],5)&"" - ""&R[5]C&"" - ""&R[9]C[6]"
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+    
+Dim filename As String
+    Dim oldfile As String
+    oldfile = ActiveWorkbook.FullName
+    
+    filename = ActiveWorkbook.path & "\" & Range("C1") & ".xlsx"
+
+ActiveWorkbook.SaveAs filename
+    Kill oldfile
+    
+  
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub JE_Rollover_V15_En_Masse()
+
+'Rollover a JE from one month straight into the next months folder updating the dates and filename
+'This version closes the file that has been rolled over
+
+'Set screen to not show workings (speeds up the process and doesnt look manic on your screen)
+
+Application.ScreenUpdating = False
+
+
+'Update the JNL date
+
+    Sheets("JE").Select
+    Range("d10").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D10").Select
+    Selection.Copy
+    Range("C10").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D10").Select
+    Selection.ClearContents
+
+'Save in the next months folder with updated filename for change in month
+
+'Paste in formulas that will calculate the file pathway and the file name
+
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1),51)&YEAR(R10C3)&""\""&TEXT(MONTH(R10C3),""00"")&"" ""&YEAR(R10C3)&""\""&RIGHT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1), LEN(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1))-FIND(""C"",LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""fi" & _
+        "lename"",RC[-1]))-1))+1)" & _
+        ""
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&TEXT(R10C3,""MMM YYYY"")&"" - ""&LEFT(RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITU" & _
+        "TE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1),FIND(""]"",RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUTE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1))-1)" & _
+        ""
+    Range("B3").Select
+
+'White out the formulas in B1 and B2 (could delete as the macro will automatically post again next month but these are good to keep for error checking)
+
+Range("B1:B2").Select
+With Selection.Font
+.ThemeColor = xlThemeColorDark1
+.TintAndShade = 0
+End With
+
+Range("B3").Select
+
+'Set pathway and filename string dimensions
+
+
+Dim path As String
+Dim filename As String
+
+path = Range("B1")
+filename = Range("B2")
+ActiveWorkbook.SaveAs filename:=path & filename
+
+ActiveWorkbook.Close False
+
+
+'Return screen updates to normal
+
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub JE_Rollover_V15()
+
+'Rollover a JE from one month straight into the next months folder updating the dates and filename
+
+'Set screen to not show workings (speeds up the process and doesnt look manic on your screen)
+
+Application.ScreenUpdating = False
+
+
+'Update the JNL date
+
+    Sheets("JE").Select
+    Range("d10").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D10").Select
+    Selection.Copy
+    Range("C10").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D10").Select
+    Selection.ClearContents
+
+'Save in the next months folder with updated filename for change in month
+
+'Paste in formulas that will calculate the file pathway and the file name
+
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1),51)&YEAR(R10C3)&""\""&TEXT(MONTH(R10C3),""00"")&"" ""&YEAR(R10C3)&""\""&RIGHT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1), LEN(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1))-FIND(""C"",LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""fi" & _
+        "lename"",RC[-1]))-1))+1)" & _
+        ""
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&TEXT(R10C3,""MMM YYYY"")&"" - ""&LEFT(RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITU" & _
+        "TE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1),FIND(""]"",RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUTE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1))-1)" & _
+        ""
+    Range("B3").Select
+
+
+'Set pathway and filename string dimensions
+
+
+Dim path As String
+Dim filename As String
+
+path = Range("B1")
+filename = Range("B2")
+ActiveWorkbook.SaveAs filename:=path & filename
+
+'White out the formulas in B1 and B2 (could delete as the macro will automatically post again next month but these are good to keep for error checking)
+
+Range("B1:B2").Select
+With Selection.Font
+.ThemeColor = xlThemeColorDark1
+.TintAndShade = 0
+End With
+
+Range("B3").Select
+
+'Return screen updates to normal
+
+Application.ScreenUpdating = True
+
+End Sub
+Sub IFS_Upload_Tab_Update_V15()
+'
+' Flat_File_Formula Macro
+'
+
+'This macro will update the formulas in the Upload tab.
+
+Application.ScreenUpdating = False
+
+Sheets("JE").Select
+
+
+    Range("B12").Select
+    ActiveCell.FormulaR1C1 = "=VLOOKUP(R[-4]C[4],CPV!C[22]:C[24],3,0)"
+
+Sheets("Upload").Select
+    
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(+JE!R[13]C[1]="""",""--"",IF(AND(OR(JE!R[13]C[3]="""",JE!R[13]C[3]=0)*OR(JE!R[13]C[4]="""",JE!R[13]C[4]=0)),""--"",LEFT(JE!R[13]C[1],5)))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""--"",""--"",IF(+JE!R[13]C[5]="""",""--"",+JE!R[13]C[5]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""--"",""--"",IF(+JE!R[13]C[6]="""",""--"",+JE!R[13]C[6]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""--"",""--"",IF(+JE!R[13]C[6]="""",""--"",+JE!R[13]C[6]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""--"",""--"",IF(+JE!R[13]C[7]="""",""--"",+JE!R[13]C[7]))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""--"",""--"",IF(+JE!R[13]C[6]="""",""--"",+JE!R[13]C[6]))"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""--"",""--"",IF(+JE!R10C6="""",""--"",+JE!R10C6))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""--"",""--"",IF(OR(+JE!R[13]C[-8]="""",+JE!R[13]C[-8]=0),""--"",+JE!R[13]C[-8]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""--"",""--"",IF(OR(+JE!R[13]C[-8]="""",+JE!R[13]C[-8]=0),""--"",+JE!R[13]C[-8]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""--"",""--"",IF(OR(+JE!R[13]C[-9]="""",+JE!R[13]C[-9]=0),""--"",+JE!R[13]C[-9]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-15]=""--"",""--"",JE!R10C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:2000"), Type:=xlFillDefault
+    
+    Dim Region As String
+Region = Worksheets("JE").Range("B12")
+
+If Region = "ROW" Then
+    Worksheets("Upload").Range("P:P").Select
+    Selection.NumberFormat = "dd/mm/yyyy"
+
+Else
+    Worksheets("Upload").Range("P:P").Select
+    Selection.NumberFormat = "mm/dd/yyyy"
+
+End If
+
+    Range("A1").Select
+  
+    Application.ScreenUpdating = True
+    
+End Sub
+Sub IFS_Upload_V15()
+
+'The new CVS process in place
+
+'Save the workbook prior to making all these changes:
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+Sheets("JE").Select
+
+
+    Range("B12").Select
+    ActiveCell.FormulaR1C1 = "=VLOOKUP(R[-4]C[4],CPV!C[22]:C[24],3,0)"
+
+
+Range("C6").Select
+Selection.Copy
+Sheets("Upload").Select
+Range("Q1").Select
+Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(+JE!R[13]C[1]="""",""--"",IF(AND(OR(JE!R[13]C[3]="""",JE!R[13]C[3]=0)*OR(JE!R[13]C[4]="""",JE!R[13]C[4]=0)),""--"",LEFT(JE!R[13]C[1],5)))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""--"",""--"",IF(+JE!R[13]C[5]="""",""--"",+JE!R[13]C[5]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""--"",""--"",IF(+JE!R[13]C[6]="""",""--"",+JE!R[13]C[6]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""--"",""--"",IF(+JE!R[13]C[6]="""",""--"",+JE!R[13]C[6]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""--"",""--"",IF(+JE!R[13]C[7]="""",""--"",+JE!R[13]C[7]))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""--"",""--"",IF(+JE!R[13]C[6]="""",""--"",+JE!R[13]C[6]))"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""--"",""--"",IF(+JE!R10C6="""",""--"",+JE!R10C6))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""--"",""--"",IF(OR(+JE!R[13]C[-8]="""",+JE!R[13]C[-8]=0),""--"",+JE!R[13]C[-8]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""--"",""--"",IF(OR(+JE!R[13]C[-8]="""",+JE!R[13]C[-8]=0),""--"",+JE!R[13]C[-8]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""--"",""--"",IF(OR(+JE!R[13]C[-9]="""",+JE!R[13]C[-9]=0),""--"",+JE!R[13]C[-9]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-15]=""--"",""--"",JE!R10C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:1000"), Type:=xlFillDefault
+    
+    Dim Region As String
+Region = Worksheets("JE").Range("B12")
+
+If Region = "ROW" Then
+    Worksheets("Upload").Range("P:P").Select
+    Selection.NumberFormat = "dd/mm/yyyy"
+
+Else
+    Worksheets("Upload").Range("P:P").Select
+    Selection.NumberFormat = "mm/dd/yyyy"
+
+End If
+
+Sheets("JE").Select
+       Range("C4").Select
+       
+
+'Copy the Upload file, this will leave the formula filled Upload in place for re-use. Copy and paste as values so we can manipulate.
+
+Sheets("Upload").Copy After:=Sheets(Sheets.Count)
+    Sheets("Upload (2)").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+       
+        
+'Now get rid of any undesirables, characters we dont like, etc
+        
+Cells.Replace What:="--", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:="#", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:=",", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+Application.CutCopyMode = False
+
+'Ensure any co numbers remain 3 digit
+
+Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    
+'Now delete any lines that have a blank in column A
+    
+On Error Resume Next
+
+Range("a1:a5000").Select
+
+Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+'Now save as CSV file
+
+Dim path As String
+Dim strName As String
+
+    Sheets("Upload (2)").Move
+    path = "C:\Users\" & Environ("username") & "\IFS Uploads"
+    ChDir path
+        
+    strName = path & "\" & Range("q1") & ".csv"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV
+    
+    Range("q:q").Clear
+    
+    ActiveWorkbook.Close SaveChanges:=True
+    
+  
+    Sheets("Upload").Select
+    Range("q:q").Clear
+    
+    Sheets("JE").Select
+    
+    Range("C6").Select
+    Selection.Copy
+    
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+End Sub
+
+Sub JE_Rollover_V8()
+
+'Rollover a JE from one month straight into the next months folder updating the dates and filename
+
+'Set screen to not show workings (speeds up the process and doesnt look manic on your screen)
+
+Application.ScreenUpdating = False
+
+
+'Update the JNL date
+
+    Sheets("JE").Select
+    Range("d10").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D10").Select
+    Selection.Copy
+    Range("C10").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D10").Select
+    Selection.ClearContents
+
+'Save in the next months folder with updated filename for change in month
+
+'Paste in formulas that will calculate the file pathway and the file name
+
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1),51)&YEAR(R10C3)&""\""&TEXT(MONTH(R10C3),""00"")&"" ""&YEAR(R10C3)&""\""&RIGHT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1), LEN(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1))-FIND(""C"",LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""fi" & _
+        "lename"",RC[-1]))-1))+1)" & _
+        ""
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&TEXT(R10C3,""MMM YYYY"")&"" - ""&LEFT(RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITU" & _
+        "TE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1),FIND(""]"",RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUTE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1))-1)" & _
+        ""
+    Range("B3").Select
+
+
+'Set pathway and filename string dimensions
+
+
+Dim path As String
+Dim filename As String
+
+path = Range("B1")
+filename = Range("B2")
+ActiveWorkbook.SaveAs filename:=path & filename
+
+'White out the formulas in B1 and B2 (could delete as the macro will automatically post again next month but these are good to keep for error checking)
+
+Range("B1:B2").Select
+With Selection.Font
+.ThemeColor = xlThemeColorDark1
+.TintAndShade = 0
+End With
+
+Range("B3").Select
+
+'Return screen updates to normal
+
+Application.ScreenUpdating = True
+
+End Sub
+
+
+Sub JE_Rollover_V7()
+
+'Rollover a JE from one month straight into the next months folder updating the dates and filename
+
+'Set screen to not show workings (speeds up the process and doesnt look manic on your screen)
+
+Application.ScreenUpdating = False
+
+
+'Update the JNL date
+
+    Sheets("JE Template").Select
+    Range("D6").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D6").Select
+    Selection.Copy
+    Range("C6").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D6").Select
+    Selection.ClearContents
+
+'Save in the next months folder with updated filename for change in month
+
+'Paste in formulas that will calculate the file pathway and the file name
+
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1),51)&YEAR(R6C3)&""\""&TEXT(MONTH(R6C3),""00"")&"" ""&YEAR(R6C3)&""\""&RIGHT(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1), LEN(LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filename"",RC[-1]))-1))-FIND(""C"",LEFT(CELL(""filename"",RC[-1]),FIND(""["",CELL(""filen" & _
+        "ame"",RC[-1]))-1))+1)" & _
+        ""
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&TEXT(R6C3,""MMM YYYY"")&"" - ""&LEFT(RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUT" & _
+        "E(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1),FIND(""]"",RIGHT(CELL(""filename""),LEN(CELL(""filename""))-FIND(""|"",SUBSTITUTE(CELL(""filename""),""-"",""|"",LEN(CELL(""filename""))-LEN(SUBSTITUTE(CELL(""filename""),""-"",""""))))-1))-1)" & _
+        ""
+    Range("B3").Select
+
+
+'Set pathway and filename string dimensions
+
+
+Dim path As String
+Dim filename As String
+
+path = Range("B1")
+filename = Range("B2")
+ActiveWorkbook.SaveAs filename:=path & filename
+
+'White out the formulas in B1 and B2 (could delete as the macro will automatically post again next month but these are good to keep for error checking)
+
+Range("B1:B2").Select
+With Selection.Font
+.ThemeColor = xlThemeColorDark1
+.TintAndShade = 0
+End With
+
+Range("B3").Select
+
+'Return screen updates to normal
+
+Application.ScreenUpdating = True
+
+End Sub
+
+
+
+
+
+
+Sub JE_Rollover_V6()
+
+'Rollover a JE from one month straight into the next months folder updating the dates and filename
+
+'Set screen to not show workings (speeds up the process and doesnt look manic on your screen)
+
+Application.ScreenUpdating = False
+
+
+'Update the JNL date
+
+    Sheets("JE Template").Select
+    Range("D6").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D6").Select
+    Selection.Copy
+    Range("C6").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D6").Select
+    Selection.ClearContents
+
+'Save in the next months folder with updated filename for change in month
+
+'Paste in formulas that will calculate the file pathway and the file name
+
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),51)&RIGHT(IF(LEFT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57,7),2)+1=13,""01""&"" ""&RIGHT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57,7),4)+1,TEXT(LEFT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""[""" & _
+        ",CELL(""filename"",R[1]C[-1]))-1),57,7),2)+1,""00"")&RIGHT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57,7),5)),4)&""\""&IF(LEFT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57,7),2)+1=13,""01""&"" ""&RIGHT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57," & _
+        "7),4)+1,TEXT(LEFT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57,7),2)+1,""00"")&RIGHT(MID(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1),57,7),5))&""\""&RIGHT(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1), LEN(LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""file" & _
+        "name"",R[1]C[-1]))-1))-FIND(""C"",LEFT(CELL(""filename"",R[1]C[-1]),FIND(""["",CELL(""filename"",R[1]C[-1]))-1))+1)" & _
+        ""
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""--"",MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))+2)&YEAR(R[4]C[1])&""M""&MONTH(R[4]C[1])&"" ""&MID(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-" & _
+        "1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),FIND(""|"",SUBSTITUTE(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),""-"",""|"",LEN(MID(LEFT(CELL(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))))-LEN(SUBSTITUTE(MID(LEFT(CELL" & _
+        "(""filename""),FIND(""]"",CELL(""filename""))-1),FIND(""["",CELL(""filename""))+1,LEN(CELL(""filename""))),""-"","""")))),20)" & _
+        ""
+    Range("B3").Select
+
+
+'Set pathway and filename string dimensions
+
+
+Dim path As String
+Dim filename As String
+
+path = Range("B1")
+filename = Range("B2")
+ActiveWorkbook.SaveAs filename:=path & filename
+
+'White out the formulas in B1 and B2 (could delete as the macro will automatically post again next month but these are good to keep for error checking)
+
+Range("B1:B2").Select
+With Selection.Font
+.ThemeColor = xlThemeColorDark1
+.TintAndShade = 0
+End With
+
+Range("B3").Select
+
+'Return screen updates to normal
+
+Application.ScreenUpdating = True
+
+
+
+
+
+
+
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sub CSV()
+'
+' CSV Macro PDF Macro - will save the current workbook under the current file name as a CSV ready to upload into IFS
+'
+
+'
+    Dim strName As String
+
+    Sheets("Flat File MK II").Select
+        
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".csv"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV
+    ActiveWorkbook.Close SaveChanges:=False
+    
+    End Sub
+
+Sub JNL_rollover()
+'
+' JNL_rollover Macro
+'
+
+'
+Application.ScreenUpdating = FalseRange("C10000").Select
+    Selection.End(xlUp).Select
+    Selection.End(xlToRight).Select
+    Selection.End(xlUp).Select
+    ActiveCell.FormulaR1C1 = "=today()"
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    
+    Range("C4").Select
+    Selection.ClearContents
+    Range("D6").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D6").Select
+    Selection.Copy
+    Range("C6").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D6").Select
+    Selection.ClearContents
+   
+    Selection.End(xlDown).Select
+    Range(Selection, Selection.End(xlToLeft)).Select
+    Selection.ClearContents
+    Range("k2").Select
+    Selection.ClearContents
+    
+    
+Application.ScreenUpdating = True
+    
+End Sub
+
+Sub Clear_sheet()
+
+
+Dim Pic As Object
+For Each Pic In ActiveSheet.Pictures
+Pic.Delete
+Next Pic
+    Cells.Select
+    Selection.ClearContents
+    Cells.Select
+    Selection.Delete Shift:=xlUp
+    Range("A1").Select
+
+End Sub
+
+
+Sub BS_Rollover2()
+'
+' BS_Rollover Macro
+'
+'
+
+Application.ScreenUpdating = False
+
+    Sheets("Template").Select
+    Range("G13:I14").Select
+    Selection.ClearContents
+    Range("J12").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    ActiveSheet.Cells.Font.ColorIndex = xlAutomatic
+    Selection.Cells.Font.Color = RGB(255, 255, 255)
+    Application.CutCopyMode = False
+    Selection.Copy
+    Range("I12").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("H7").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("H7").Select
+    Selection.Copy
+    Range("G7").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("H7").Select
+    Selection.ClearContents
+    Range("g12").Value = "Chris Sharples"
+    
+    
+'Update the file name to the current month
+Dim path As String
+Dim filename As String
+Dim oldfile As String
+'Set string dimensions
+oldfile = ActiveWorkbook.FullName
+Sheets("GL Bal OneStream").Select
+Range("B1").Select
+ActiveCell.FormulaR1C1 = _
+        "=""Co ""&Template!R[3]C[5]&"" - ""&Template!R[4]C[5]&"" - ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - CBS"""
+path = Left(ActiveWorkbook.path, InStrRev(ActiveWorkbook.path, "\"))
+filename = Range("B1")
+ActiveWorkbook.SaveAs filename:=path & filename & ".xlsx"
+Kill oldfile
+Sheets("Template").Select
+    
+Application.ScreenUpdating = True
+    
+
+End Sub
+
+Sub test99()
+
+Dim path As String
+Dim filename As String
+Dim oldfile As String
+'Set string dimensions
+oldfile = ActiveWorkbook.FullName
+Sheets("GL Bal OneStream").Select
+Range("B1").Select
+ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],4)&"" - ""&Template!R[4]C[5]&"" - ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - CBS"""
+path = Left(ActiveWorkbook.path, InStrRev(ActiveWorkbook.path, "\"))
+filename = Range("B1")
+ActiveWorkbook.SaveAs filename:=path & filename & ".xlsx"
+Kill oldfile
+
+
+End Sub
+
+
+
+
+
+
+
+Sub pdf()
+'
+'PDF Macro - will save the current workbook under the current file name as a PDF ready to sign and add posting data
+'
+
+'
+Application.ScreenUpdating = False
+
+If Sheets("Accounts").Visible = True Then Sheets("Accounts").Visible = False Else Sheets("Accounts").Visible = True
+
+
+Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-2]"
+    Range("O2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-4]"
+    Range("P2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-5]"
+    Range("P2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("M2:P2").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+    Sheets("JE Template").Select
+    ActiveSheet.Range("$B$13:$P$514").AutoFilter Field:=1, Criteria1:= _
+"<>---  ---", Operator:=xlFilterValues
+
+    Sheets("Flat File MK II").Select
+        ActiveSheet.Range("$A$1:$P$500").AutoFilter Field:=1, Criteria1:= _
+"<>---  ---", Operator:=xlFilterValues
+
+    Sheets("JE Template").Select
+    
+    Application.ScreenUpdating = True
+
+
+    Dim strName As String
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".pdf"
+
+
+    ChDir ActiveWorkbook.path & "\"
+    ActiveWorkbook.ExportAsFixedFormat Type:=xlTypePDF, filename:= _
+        strName, Quality:=xlQualityStandard, _
+        IncludeDocProperties:=True, IgnorePrintAreas:=False, OpenAfterPublish:= _
+        True
+
+
+    Sheets("Flat File MK II").Select
+    ActiveSheet.ShowAllData
+    Rows("1:1").Select
+    Selection.AutoFilter
+    Sheets("JE Template").Select
+    ActiveSheet.ShowAllData
+    Rows("13:13").Select
+    Selection.AutoFilter
+    Range("m2:p2").Select
+
+ If Sheets("Accounts").Visible = False Then Sheets("Accounts").Visible = True Else Sheets("Accounts").Visible = True
+
+
+Application.ScreenUpdating = False
+
+End Sub
+
+
+
+Sub Big_CSV()
+
+'The new CVS process in place
+
+'Save the workbook prior to making all these changes:
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+Sheets("Flat File MK II").Select
+       Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF('JE Template'!R[13]C[1]=""Prepared by:"",""---  ---"",IF('JE Template'!R[13]C[1]=""Approved by:"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",IF(AND('JE Template'!R[13]C[9]=0,'JE Template'!R[13]C[8]=0),""---  ---"",IF(AND('JE Template'!R[13]C[9]="""",'JE Template'!R[13]C[8]=""""),""---  ---"",+'JE Template'!R[13]C[1])))))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-5]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C="""",""---  ---"",+'JE Template'!R[13]C))"
+    Columns("G:G").Select
+    Selection.NumberFormat = "General"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C="""",""---  ---"",+'JE Template'!R[13]C))"
+        Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[-3]="""",""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:500"), Type:=xlFillDefault
+
+Sheets("JE Template").Select
+       Range("C4").Select
+       
+ActiveWorkbook.Save
+
+'Copy the Flat File MK II, this will leave the formula filled Flat File MK II in place for re-use. Copy and paste as values so we can manipulate.
+
+Sheets("Flat File MK II").Copy After:=Sheets(Sheets.Count)
+    Sheets("Flat File MK II (2)").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+'Now get rid of any undesirables, characters we dont like, etc
+        
+Cells.Replace What:="---  ---", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:="#", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+   Cells.Replace What:=",", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+Application.CutCopyMode = False
+
+'Ensure any co numbers remain 3 digit
+
+Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    
+'Now delete any lines that have a blank in column A
+    
+On Error Resume Next
+
+Range("a1:a5000").Select
+
+Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+'Now save as CSV file
+
+Dim path As String
+Dim strName As String
+
+    Sheets("Flat File MK II (2)").Move
+    path = "C:\Users\" & Environ("username") & "\SAP Uploads"
+    ChDir path
+        
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".csv"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV, CreateBackup:=False
+    
+ Range("q:q").Clear
+    
+    ActiveWorkbook.Close SaveChanges:=True
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+End Sub
+
+
+Sub Alt_CSV()
+
+'WIP
+
+'Need to make the Flat File MK II readable for Connie when reviewing
+
+'Save the workbook prior to making all these changes:
+
+Application.ScreenUpdating = False
+
+ActiveWorkbook.Save
+
+'Copy the Flat File MK II, this will leave the formula filled Flat File MK II in place for re-use. Copy and paste as values so we can manipulate.
+
+
+        
+'Now get rid of any undesirables, characters we dont like, etc
+        
+Cells.Replace What:="@PRINCE@", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:="#", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:=",", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+Cells.Replace What:="Prepared by:", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+  Cells.Replace What:="Approved by:", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+Application.CutCopyMode = False
+
+'Ensure any co numbers remain 3 digit
+
+Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    
+'Now delete any lines that have a blank in column A
+    
+On Error Resume Next
+
+Range("a1:a5000").Select
+
+Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+'Now save as CSV file
+
+Dim strName As String
+
+    Sheets("Flat File MK II (2)").Select
+        
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".csv"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV
+    ActiveWorkbook.Close SaveChanges:=False
+
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub Flat_File_Formula()
+'
+' Flat_File_Formula Macro
+'
+
+'This macro will update the formulas in the Flat File MK II, filling them down that way if there are any lines deleted they will not impact the integrity of the upload.
+
+Sheets("Flat File MK II").Select
+       Range("A1").Select
+
+     
+    ActiveCell.FormulaR1C1 = _
+       "=IF('JE Template'!R[13]C[1]=""Prepared by:"",""---  ---"",IF('JE Template'!R[13]C[1]=""Approved by:"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",IF(AND('JE Template'!R[13]C[9]=0,'JE Template'!R[13]C[8]=0),""---  ---"",IF(AND('JE Template'!R[13]C[9]="""",'JE Template'!R[13]C[8]=""""),""---  ---"",+'JE Template'!R[13]C[1])))))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-5]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C="""",""---  ---"",+'JE Template'!R[13]C))"
+           Columns("G:G").Select
+    Selection.NumberFormat = "General"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C="""",""---  ---"",+'JE Template'!R[13]C))"
+        Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[-3]="""",""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Range("P1").Select
+    Selection.NumberFormat = "dd/mm/yyyy;@"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:2000"), Type:=xlFillDefault
+    
+    
+End Sub
+Sub JE_Standardise()
+'
+' JE_Standardise Macro
+'
+
+'
+Application.ScreenUpdating = False
+Sheets("JE Template").Select
+    Range("B8:C8").Select
+    Range("B8:C8").Cut Destination:=Range("B6:C6")
+    Range("D5").Select
+    Selection.AutoFill Destination:=Range("D5:D6"), Type:=xlFillDefault
+    Range("D5:D6").Select
+    Range("B7:D7").Select
+    Selection.AutoFill Destination:=Range("B7:D8"), Type:=xlFillDefault
+    Range("B7:D8").Select
+    Range("B10:I10").Select
+    Selection.Cut Destination:=Range("B9:I9")
+    Range("I8").Select
+    Selection.AutoFill Destination:=Range("I8:I10"), Type:=xlFillDefault
+    Range("I8:I10").Select
+    Range("B8:C8").Select
+    Selection.Copy
+    Range("B8").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Range("B10").Select
+    ActiveSheet.Paste
+    Range("C9:H9").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Range("C10:H10").Select
+    Selection.PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, _
+        SkipBlanks:=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("C9:H10").Select
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    Selection.Borders(xlEdgeLeft).LineStyle = xlNone
+    Selection.Borders(xlEdgeTop).LineStyle = xlNone
+    Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+    Selection.Borders(xlEdgeRight).LineStyle = xlNone
+    Selection.Borders(xlInsideVertical).LineStyle = xlNone
+    Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    Selection.Borders(xlEdgeLeft).LineStyle = xlNone
+    Selection.Borders(xlEdgeTop).LineStyle = xlNone
+    Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+    Selection.Borders(xlEdgeRight).LineStyle = xlNone
+    Selection.Borders(xlInsideVertical).LineStyle = xlNone
+    Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    Selection.Borders(xlEdgeLeft).LineStyle = xlNone
+    Selection.Borders(xlEdgeTop).LineStyle = xlNone
+    With Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    Selection.Borders(xlEdgeRight).LineStyle = xlNone
+    Selection.Borders(xlInsideVertical).LineStyle = xlNone
+    Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+Sheets("Flat File MK II").Select
+       Range("A1").Select
+     
+    ActiveCell.FormulaR1C1 = _
+       "=IF('JE Template'!R[13]C[1]=""Prepared by:"",""---  ---"",IF('JE Template'!R[13]C[1]=""Approved by:"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",IF(AND('JE Template'!R[13]C[9]=0,'JE Template'!R[13]C[8]=0),""---  ---"",IF(AND('JE Template'!R[13]C[9]="""",'JE Template'!R[13]C[8]=""""),""---  ---"",+'JE Template'!R[13]C[1])))))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[1]="""",""---  ---"",+'JE Template'!R[13]C[1]))"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-5]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C="""",""---  ---"",+'JE Template'!R[13]C))"
+           Columns("G:G").Select
+    Selection.NumberFormat = "General"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C="""",""---  ---"",+'JE Template'!R[13]C))"
+        Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[-3]="""",""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-3]="""",+'JE Template'!R[13]C[-3]=0),""---  ---"",+'JE Template'!R[13]C[-3]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:500"), Type:=xlFillDefault
+    
+    
+    Sheets("JE Template").Select
+      Range("A1").Select
+    Application.ScreenUpdating = True
+
+End Sub
+
+
+
+Sub BLY_Balance_sheet_set_up()
+'
+' BLY_Balance_sheet_set_up Macro
+
+
+Application.ScreenUpdating = False
+
+'
+
+On Error GoTo GetOut
+Sheets("GL Balance OneStream").Select
+ActiveSheet.Name = "Gl Bal OneStream"
+GetOut:
+
+    Sheets("Template").Select
+    Range("G7:I7").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G8:I8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G8").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    ActiveCell.FormulaR1C1 = "2018"
+    Range("G12:H12").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = True
+    End With
+    Range("I12").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Range("I12").Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("G7").Select
+    Application.CutCopyMode = False
+    Range("G7").Select
+    ActiveCell.FormulaR1C1 = "1/31/2018"
+    Range("G7").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.NumberFormat = "mmmm"
+    Range("G13:I14").Select
+    Selection.ClearContents
+    Range("D22").Select
+    ActiveCell.FormulaR1C1 = "=R[-15]C[3]"
+    Range("E22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],-1)"
+    Range("F22").Select
+    ActiveCell.FormulaR1C1 = _
+        "=(DATE(YEAR(Template!R7C7),FLOOR(MONTH(Template!R7C7)-1,3)+1,0))"
+    Range("G22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-3],-MONTH(RC[-3]))"
+    Range("H22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-4],-12)"
+
+    Sheets("GL Bal OneStream").Select
+    
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Co ""&Template!R[3]C[5]&"" - ""&Template!R[4]C[5]&""- ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - BLY"""
+
+    Range("J1").Select
+ActiveCell.FormulaR1C1 = _
+        "=""T#""&YEAR(Template!R7C7)&""M""&MONTH(Template!R7C7)&"", T#""&YEAR(EOMONTH(Template!R7C7,-1))&""M""&MONTH(EOMONTH(Template!R7C7,-1))&"", T#""&YEAR(DATE(YEAR(Template!R7C7),FLOOR(MONTH(Template!R7C7)-1,3)+1,0))&""M""&MONTH(DATE(YEAR(Template!R7C7),FLOOR(MONTH(Template!R7C7)-1,3)+1,0))&"", T#""&YEAR(Template!R7C7)-1&""M""&12&"", T#""&YEAR(Template!R7C7)-1&""M""&MONT" & _
+        "H(Template!R7C7)" & _
+        ""
+    
+Sheets("Template").Select
+
+Application.ScreenUpdating = True
+    
+    
+    
+End Sub
+
+Sub GL_Bal_Name()
+
+On Error GoTo GetOut
+Sheets("GL Balance OneStream").Select
+ActiveSheet.Name = "Gl Bal OneStream"
+GetOut
+
+
+End Sub
+
+Sub JE_Rollover_newest()
+'
+' BS_Rollover Macro
+'
+'
+
+Application.ScreenUpdating = False
+
+    
+    Sheets("JE Template").Select
+    Range("C4").Select
+    Selection.ClearContents
+    Range("E4").Select
+    Selection.ClearContents
+    Range("D6").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],1)"
+    Range("D6").Select
+    Selection.Copy
+    Range("C6").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("D6").Select
+    Selection.ClearContents
+    Range("C10000").Select
+    Selection.End(xlUp).Select
+    Selection.End(xlToRight).Select
+    Selection.End(xlUp).Select
+    ActiveCell.FormulaR1C1 = "=today()"
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Selection.End(xlDown).Select
+    Range(Selection, Selection.End(xlToLeft)).Select
+    Selection.ClearContents
+    Range("k2").Select
+    Selection.ClearContents
+
+
+        Range("M1").Select
+    ActiveCell.FormulaR1C1 = "=CELL(""filename"")"
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=MID(RC[-1],FIND("" - Co "",RC[-1])+1,FIND("".xlsx"",RC[-1])-FIND("" - Co "",RC[-1])-1)"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],FIND(""--"",RC[-1])+2)&YEAR(r6c3)&""M""&MONTH(r6c3)&"" - CBS"""
+   Range("M1:O1").Select
+   Selection.Cells.Font.Color = RGB(255, 255, 255)
+
+
+
+Dim path As String
+Dim filename As String
+Dim oldfile As String
+'Set string dimensions
+oldfile = ActiveWorkbook.FullName
+
+path = Left(ActiveWorkbook.path, InStrRev(ActiveWorkbook.path, "\"))
+filename = Range("O1")
+ActiveWorkbook.SaveAs filename:=path & filename & ".xlsx"
+Kill oldfile
+Range("C1").Select
+    
+    
+    
+
+Application.ScreenUpdating = True
+    
+
+End Sub
+
+Sub TEST_JE_Rollover_newest()
+
+
+
+
+
+
+
+
+
+
+
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = "=CELL(""filename"")"
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=MID(RC[-1],FIND("" - Co "",RC[-1])+1,FIND("".xlsx"",RC[-1])-FIND("" - Co "",RC[-1])-1)"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],FIND(""--"",RC[-1])+2)&TEXT(R6C3,""mmm yyyy"")&RIGHT(RC[-1],7)"
+   Range("M1:O1").Select
+   Selection.Cells.Font.Color = RGB(255, 255, 255)
+
+
+
+
+Dim path As String
+Dim filename As String
+Dim oldfile As String
+'Set string dimensions
+oldfile = ActiveWorkbook.FullName
+'Set string dimensions
+
+
+
+path = Left(ActiveWorkbook.path, InStrRev(ActiveWorkbook.path, "\"))
+filename = Range("O1")
+ActiveWorkbook.SaveAs filename:=path & filename & ".xlsx"
+Kill oldfile
+
+End Sub
+Sub JE_Rollover_newest_Payroll()
+'
+' BS_Rollover Macro
+'
+'
+
+Application.ScreenUpdating = False
+
+    
+    Sheets("JE Template").Select
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "=R[8]C[-12]&"" - CBSp"""
+
+    ActiveWorkbook.Save
+
+
+
+Dim path As String
+Dim filename As String
+Dim oldfile As String
+'Set string dimensions
+oldfile = ActiveWorkbook.FullName
+
+path = Left(ActiveWorkbook.path, InStrRev(ActiveWorkbook.path, "\"))
+filename = Range("O1")
+ActiveWorkbook.SaveAs filename:=path & filename & ".xlsx"
+Range("C4").Select
+Workbooks.Open oldfile
+Windows(filename).Activate
+
+ Call Big_CSV
+    
+    
+
+Application.ScreenUpdating = True
+    
+
+End Sub
+
+Sub TESTERTESTEES()
+Dim path As String
+Dim filename As String
+Dim oldfile As String
+'Set string dimensions
+oldfile = ActiveWorkbook.FullName
+
+path = Left(ActiveWorkbook.path, InStrRev(ActiveWorkbook.path, "\"))
+filename = Range("O1")
+ActiveWorkbook.SaveAs filename:=path & filename & ".xlsx"
+Range("C4").Select
+Workbooks.Open oldfile
+  Windows(filename).Activate
+    
+    
+
+Application.ScreenUpdating = True
+End Sub
+
+Sub IFSPdfandNameChange_old()
+
+Application.ScreenUpdating = False
+
+Sheets("JE Template").Select
+
+Range("P1").Select
+  Selection.Cells.Font.Color = RGB(255, 255, 255)
+    ActiveCell.FormulaR1C1 = _
+        "=R[3]C[-13]&"" -""&MID(RC[-3],FIND(""- Co "",RC[-3])+1,FIND("".xlsx"",RC[-3])-FIND(""- Co "",RC[-3])-1)"
+
+Dim filename As String
+    Dim oldfile As String
+    oldfile = ActiveWorkbook.FullName
+    
+    filename = ActiveWorkbook.path & "\" & Range("p1") & ".xlsx"
+
+ActiveWorkbook.SaveAs filename
+    Kill oldfile
+    
+
+
+Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-2]"
+    Range("O2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-4]"
+    Range("P2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-5]"
+    Range("P2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("M2:P2").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+
+    Sheets("JE Template").Select
+    
+
+   Dim strName As String
+    strName = ActiveWorkbook.path & "\" & Range("p1") & ".pdf"
+
+    Application.ScreenUpdating = False
+    Sheets("JE Template").Select
+    
+    ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, _
+            filename:=strName, _
+            OpenAfterPublish:=True
+
+
+  Range("m2:p2").Select
+  
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub IFSPdfandNameChange()
+
+Application.ScreenUpdating = False
+
+Sheets("JE Template").Select
+
+Range("P1").Select
+  Selection.Cells.Font.Color = RGB(255, 255, 255)
+    ActiveCell.FormulaR1C1 = _
+        "=R[3]C[-13]&"" -""&MID(RC[-3],FIND(""- Co "",RC[-3])+1,FIND("".xlsx"",RC[-3])-FIND(""- Co "",RC[-3])-1)"
+
+Dim filename As String
+    Dim oldfile As String
+    oldfile = ActiveWorkbook.FullName
+    
+    filename = ActiveWorkbook.path & "\" & Range("p1") & ".xlsx"
+
+ActiveWorkbook.SaveAs filename
+    Kill oldfile
+    
+
+
+Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-2]"
+    Range("O2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-4]"
+    Range("P2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-5]"
+    Range("P2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("M2:P2").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+
+    Sheets("JE Template").Select
+    
+  Range("m2:p2").Select
+  Range("c4").Select
+Range("c4").Copy
+  
+  
+  
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub Big_CSV_New()
+
+'The new CVS process in place
+
+'Save the workbook prior to making all these changes:
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+Sheets("Flat File MK II").Select
+    Range("Q1").Select
+    Selection.ClearContents
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(+'JE Template'!R[13]C[1]="""",""---  ---"",LEFT('JE Template'!R[13]C[1],5))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[5]="""",""---  ---"",+'JE Template'!R[13]C[5]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[6]="""",""---  ---"",+'JE Template'!R[13]C[6]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[7]="""",""---  ---"",+'JE Template'!R[13]C[7]))"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-5]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[9]="""",""---  ---"",+'JE Template'!R[13]C[9]))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(A1=""---  ---"",""---  ---"",IF(+'JE Template'!M14="""",""---  ---"",+'JE Template'!M14))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""---  ---"",""---  ---"",IF(+'JE Template'!R[13]C[6]="""",""---  ---"",+'JE Template'!R[13]C[6]))"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""---  ---"",""---  ---"",IF(+'JE Template'!R10C6="""",""---  ---"",+'JE Template'!R10C6))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-8]="""",+'JE Template'!R[13]C[-8]=0),""---  ---"",+'JE Template'!R[13]C[-8]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-8]="""",+'JE Template'!R[13]C[-8]=0),""---  ---"",+'JE Template'!R[13]C[-8]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""---  ---"",""---  ---"",IF(OR(+'JE Template'!R[13]C[-9]="""",+'JE Template'!R[13]C[-9]=0),""---  ---"",+'JE Template'!R[13]C[-9]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""---  ---"",""---  ---"",'JE Template'!R6C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:2000"), Type:=xlFillDefault
+    
+    Sheets("JE Template").Select
+       Range("C10 ").Select
+           Selection.Copy
+    Sheets("Flat File MK II").Select
+       Range("Q1").Select
+               Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+
+Sheets("JE Template").Select
+       Range("C4").Select
+
+
+'Copy the Flat File MK II, this will leave the formula filled Flat File MK II in place for re-use. Copy and paste as values so we can manipulate.
+'This also now adds a file name into teh Flat File MK II that we can use to make a local name
+
+
+Sheets("Flat File MK II").Copy After:=Sheets(Sheets.Count)
+    Sheets("Flat File MK II (2)").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+'Now get rid of any undesirables, characters we dont like, etc
+        
+Cells.Replace What:="---  ---", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:="#", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:=",", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+Application.CutCopyMode = False
+
+'Ensure any co numbers remain 3 digit
+
+Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    
+'Now delete any lines that have a blank in column A
+    
+On Error Resume Next
+
+Range("a1:a5000").Select
+
+Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+'Now save as CSV file in upload directory
+
+Dim path As String
+Dim strName As String
+
+    Sheets("Flat File MK II (2)").Move
+    path = "C:\Users\" & Environ("username") & "\IFS Uploads"
+    ChDir path
+        
+    strName = path & "\" & Range("q1") & ".csv"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV
+    
+    Range("q:q").Clear
+    
+    ActiveWorkbook.Close SaveChanges:=True
+    
+    Sheets("JE Template").Select
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+End Sub
+
+Sub test_payroll()
+'
+' test_payroll Macro
+'
+
+'
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "=R[8]C[-12]&"" - CBSp"""
+    Range("T28").Select
+    ActiveWindow.SmallScroll Down:=-15
+    ActiveWorkbook.Save
+    ActiveWindow.SmallScroll Down:=-6
+    Range("L30").Select
+    ActiveWindow.SmallScroll Down:=-21
+    Sheets("JE Template").Select
+    Application.Run "PERSONAL.XLSB!JE_Rollover_newest_Payroll"
+    ActiveWindow.Close
+    Workbooks.Open filename:= _
+        "P:\Prince Minerals Accounting Dept\Journal Entries\2018\03 2018\Co 09 - Prince Energy\CBS pre\- Co 09 - TEMPLATE - Weekly Payroll -- Feb 2018 - CBSp.xlsx"
+    ActiveWindow.Close
+    Workbooks.Open filename:= _
+        "P:\Prince Minerals Accounting Dept\Journal Entries\2018\03 2018\Co 09 - Prince Energy\CBS pre\- Co 09 - TEMPLATE - Weekly Payroll -- Feb 2018 - CBSp.xlsx"
+    Application.Left = -5
+    Application.Top = -5
+    Application.Width = 1452
+    Application.Height = 882
+    ActiveWindow.View = xlPageBreakPreview
+    Workbooks.Add
+    ActiveWindow.SmallScroll Down:=-12
+    ActiveWindow.Close
+    ActiveWindow.Close
+    Range("Q16").Select
+    ActiveWorkbook.Save
+    ActiveWindow.Visible = False
+    Range("F6").Select
+    ActiveCell.FormulaR1C1 = ""
+    Range("F5").Select
+    ActiveWindow.Close
+    ActiveWindow.Close
+    ActiveWindow.Close
+    ActiveWindow.Close
+    ActiveWindow.Close
+    
+    
+End Sub
+
+
+Sub sap_flatfile_txt()
+'
+' saptxt2 Macro
+'
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+        
+Sheets("Accounts").Select
+
+On Error GoTo MyBad
+Sheets.Add
+    ActiveSheet.Name = "Flat File MK II"
+    
+MyBad:
+
+    Sheets("Flat File MK II").Select
+
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "CompanyCode"
+    
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = "DocType"
+    
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = "DocDate"
+    
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = "PostingDate"
+
+    Range("E1").Select
+    ActiveCell.FormulaR1C1 = "RefDocNo"
+
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = "DocHeaderTxt"
+
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = "Currency"
+
+    Range("H1").Select
+    ActiveCell.FormulaR1C1 = "GLLedger"
+
+    Range("I1").Select
+    ActiveCell.FormulaR1C1 = "GLAccount"
+
+    Range("J1").Select
+    ActiveCell.FormulaR1C1 = "Debit/Credit"
+
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = "AmountInDocCurr"
+   
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = "AmountInLocalCurr"
+
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = "AmountInGroupCurr"
+
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = "AmountInHardCurr"
+    
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "SalesTaxCode"
+
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "ItemTxt"
+
+    Range("Q1").Select
+    ActiveCell.FormulaR1C1 = "ControllingArea"
+
+    Range("R1").Select
+    ActiveCell.FormulaR1C1 = "CostCenter"
+
+    Range("S1").Select
+    ActiveCell.FormulaR1C1 = "OrderNumber"
+    
+    Range("T1").Select
+    ActiveCell.FormulaR1C1 = "ProfitCenter"
+    
+    Range("U1").Select
+    ActiveCell.FormulaR1C1 = "BusinessArea"
+    
+    Range("V1").Select
+    ActiveCell.FormulaR1C1 = "TradingPartner"
+    
+    Range("W1").Select
+    ActiveCell.FormulaR1C1 = "Assignment"
+    
+    Range("X1").Select
+    ActiveCell.FormulaR1C1 = "PersonnelNumber"
+    
+    
+    Range("A2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[10]<>"""",'JE Template'!R10C9,"""")"
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[9]<>"""",""SA"","""")"
+    Range("C2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[8]<>"""",TEXT('JE Template'!R6C3,""ddmmyyyy""),"""")"
+    Range("D2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[7]<>"""",TEXT('JE Template'!R6C3,""ddmmyyyy""),"""")"
+    Range("E2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[6]="""","""",MID('JE Template'!R8C3,9,15))"
+    Range("F2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[5]="""","""",MID('JE Template'!R8C3,9,25))"
+    Range("G2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[4]<>"""",""EUR"","""")"
+    Range("I2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[2]<>"""",'JE Template'!R[12]C[-7],"""")"
+    Range("J2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[1]="""","""",IF('JE Template'!R[12]C[-3]<>"""",""D"",IF('JE Template'!R[12]C[-2]<>"""",""C"","""")))"
+    Range("k2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(OR('JE Template'!R[12]C[-9]="""",'JE Template'!R[12]C[-9]=""prepared by:"",'JE Template'!R[12]C[-9]=""Approved by:""),"""",IF('JE Template'!R[12]C[-4]<>"""",'JE Template'!R[12]C[-4],IF('JE Template'!R[12]C[-3]<>"""",'JE Template'!R[12]C[-3],"""")))"
+    Range("M2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-2]<>"""",RC[-2],"""")"
+    Range("N2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-3]<>"""",RC[-3],"""")"
+    Range("P2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-5]<>"""",'JE Template'!R[12]C[-6],"""")"
+    Range("Q2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-6]<>"""",""CA01"","""")"
+    Range("R2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-7]="""","""",IF('JE Template'!R[12]C[-15]="""","""",'JE Template'!R[12]C[-15]))"
+    Rows("2:2").Select
+    Range("K2").Activate
+    Selection.AutoFill Destination:=Rows("2:100"), Type:=xlFillDefault
+    Rows("1:100").Select
+    
+   Sheets("Flat File MK II").Select
+    Range("A1:Y1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$X$2000").AutoFilter Field:=1, Criteria1:="<>"
+    Range("A1").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Copy
+    
+        Sheets("Accounts").Select
+
+Sheets.Add
+    ActiveSheet.Name = "Flat File MK II 2"
+    
+    Sheets("Flat File MK II 2").Select
+    Range("A1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Selection.NumberFormat = "@"
+    
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+   
+End Sub
+
+
+
+
+
+Sub sap_flatfile_txt2()
+'
+' sap_flatfile_txt2 Macro
+'
+
+'
+    Application.ScreenUpdating = False
+    
+    ActiveWorkbook.Save
+    Range("A1:Y1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$X$2000").AutoFilter Field:=1, Criteria1:="<>"
+    Range("A1").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Copy
+    Sheets("Flat File MK II 2").Select
+    Range("A1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Selection.NumberFormat = "@"
+    
+    Dim strName As String
+
+    Sheets("Flat File MK II 2").Select
+        
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".txt"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlText
+    ActiveWorkbook.Close SaveChanges:=False
+
+Application.ScreenUpdating = True
+    
+End Sub
+
+
+
+
+
+
+
+
+
+Sub sapflatfile_txt3()
+'
+' sapflatfile_txt3 Macro
+'
+
+'
+    ActiveWorkbook.SaveAs filename:= _
+        "P:\Prince Minerals Accounting Dept\Journal Entries\2018\04 2018\Co 56 - PMB\Co 56 - Recharge Lisam invoice from exp in April - 0418 - CBS Test.txt" _
+        , FileFormat:=xlText, CreateBackup:=False
+    ActiveWindow.Close
+    Range("F32").Select
+End Sub
+Sub saptxtfile5()
+'
+' saptxtfile5 Macro
+'
+
+'
+    Range("A1:Y1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$X$1000").AutoFilter Field:=1, Criteria1:="<>"
+    Range("A1").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Selection.Copy
+    Sheets("Flat File MK II 2").Select
+    Range("A1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    Selection.NumberFormat = "@"
+    Range("J13").Select
+End Sub
+
+Sub SAPJESETUP()
+'
+' SAPJESETUP Macro
+'
+
+'
+    Range("C4").Select
+    Selection.NumberFormat = "General"
+    Range("C8").Select
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("C8").Select
+    ActiveCell.FormulaR1C1 = "3/31/2018"
+    Range("C8").Select
+    Selection.NumberFormat = "dd/mm/yyyy;@"
+    Range("C4:C10").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+
+
+    Range("H1").Select
+    ActiveCell.FormulaR1C1 = "Posted:"
+
+
+    Range("I1").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = "=CELL(""filename"")"
+    
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=MID(RC[-1],FIND("" - Co "",RC[-1])+1,FIND("".xlsx"",RC[-1])-FIND("" - Co "",RC[-1])-1)"
+
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],FIND(""--"",RC[-1])+2)&TEXT(R6C3,""mmm yyyy"")&RIGHT(RC[-1],7)"
+    
+    Range("M2").Select
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+
+    Range("N2").Select
+    ActiveCell.FormulaR1C1 = "=R[2]C[-2]"
+
+    Range("o2").Select
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-5]"
+    Range("o2").Select
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-7]"
+    
+    Range("R31").Select
+    Range("B8:C8").Select
+    Selection.Cut Destination:=Range("E5:F5")
+    Range("B6:C6").Select
+    Selection.Cut Destination:=Range("B8:C8")
+    Range("E5:F5").Select
+    Selection.Cut Destination:=Range("B6:C6")
+    Range("D5").Select
+    Selection.AutoFill Destination:=Range("D5:D6"), Type:=xlFillDefault
+    Range("D5:D6").Select
+    Range("F4").Select
+    Selection.AutoFill Destination:=Range("F4:F5"), Type:=xlFillDefault
+    Range("F4:F5").Select
+    Range("E4").Select
+    Selection.AutoFill Destination:=Range("E4:E5"), Type:=xlFillDefault
+    Range("E4:E5").Select
+    Range("N2").Select
+    ActiveCell.FormulaR1C1 = "=R[2]C[-4]"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],FIND(""--"",RC[-1])+2)&TEXT(R6C3,""mmm yyyy"")&RIGHT(RC[-1],7)"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],FIND(""--"",RC[-1])+2)&TEXT(R6C3,""mmm yyyy"")&RIGHT(RC[-1],7)"
+    Range("M1:R2").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+End Sub
+
+Sub SaveToRelativePath4()
+
+Application.ScreenUpdating = False
+
+Sheets("JE Template").Select
+
+Range("P1").Select
+  Selection.Cells.Font.Color = RGB(255, 255, 255)
+    ActiveCell.FormulaR1C1 = _
+        "=R[3]C[-13]&"" -""&MID(RC[-3],FIND(""- Co "",RC[-3])+1,FIND("".xlsx"",RC[-3])-FIND(""- Co "",RC[-3])-1)"
+
+Dim filename As String
+    Dim oldfile As String
+    oldfile = ActiveWorkbook.FullName
+    
+    filename = Range("p1")
+
+ActiveWorkbook.SaveAs filename
+    Kill oldfile
+    
+
+
+Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-4]"
+    Range("O2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-6]"
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+    Columns("M:Q").Select
+    Selection.EntireColumn.Hidden = True
+    
+    ActiveSheet.Range("$B$13:$P$514").AutoFilter Field:=1, Criteria1:= _
+"<>---  ---", Operator:=xlFilterValues
+
+
+    Sheets("JE Template").Select
+    
+
+    Dim strName As String
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".pdf"
+
+    Application.ScreenUpdating = False
+    Sheets("JE Template").Select
+    
+    ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, _
+            filename:=strName, _
+            OpenAfterPublish:=True
+
+  
+  Columns("M:Q").EntireColumn.Hidden = False
+  Range("m2:o2").Select
+  
+Application.ScreenUpdating = True
+
+End Sub
+
+
+
+Sub SapPdfandNameChange()
+
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+Sheets("JE Template").Select
+
+       
+        
+ Range("M1").Select
+    ActiveCell.FormulaR1C1 = "=CELL(""filename"")"
+Range("N1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=MID(RC[-1],FIND("" - Co "",RC[-1])+1,FIND("".xlsx"",RC[-1])-FIND("" - Co "",RC[-1])-1)"
+Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=LEFT(RC[-1],FIND(""--"",RC[-1])+2)&TEXT(R6C3,""mmm yyyy"")&RIGHT(RC[-1],7)"
+Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=R[3]C[-13]&"" -""&MID(RC[-3],FIND(""- Co "",RC[-3])+1,FIND("".xlsx"",RC[-3])-FIND(""- Co "",RC[-3])-1)"
+    Range("m1:p1").Select
+With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+End With
+        
+        
+
+Dim filename As String
+    Dim oldfile As String
+    oldfile = ActiveWorkbook.FullName
+    
+    filename = ActiveWorkbook.path & "\" & Range("p1") & ".xlsx"
+
+ActiveWorkbook.SaveAs filename
+    Kill oldfile
+    
+
+
+Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-4]"
+    Range("p2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-7]"
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+    Columns("M:Q").Select
+    Selection.EntireColumn.Hidden = True
+    
+    ActiveSheet.Range("$B$13:$P$514").AutoFilter Field:=1, Criteria1:= _
+"<>---  ---", Operator:=xlFilterValues
+
+
+    Sheets("JE Template").Select
+    
+
+
+  
+  Columns("M:Q").EntireColumn.Hidden = False
+  Range("c4").Select
+Range("c4").Copy
+  
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+End Sub
+
+
+
+
+
+Sub saptxt9()
+'
+' saptxt9 Macro
+'
+
+'
+    ActiveCell.FormulaR1C1 = "=IF(RC[10]<>"""",'JE Template'!R[8]C[8],"""")"
+    Range("A2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[10]<>"""",'JE Template'!R10C9,"""")"
+    Range("A2").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[10]<>"""",'JE Template'!R10C9,"""")"
+    Range("K127").Select
+    Sheets("Flat File MK II 2").Select
+    Sheets("Flat File MK II 2").Move After:=Sheets(5)
+    Range("L26").Select
+    ActiveWindow.Close
+    Windows("Updated banking requests.xlsx").Activate
+    Windows("IFS UNPOSTED  Cash Items - 20180413 (003).xlsx").Activate
+    Windows("Book1").Activate
+    Application.WindowState = xlNormal
+    Windows( _
+        "Co 56 - Recharge Lisam invoice from exp in April - 0418 - CBS Test.xlsx"). _
+        Activate
+    Range("U16").Select
+    ActiveWindow.SmallScroll Down:=-3
+    Range("A2").Select
+    Sheets("Flat File MK II").Select
+    Range("A2").Select
+    Selection.FillDown
+    Range("F110").Select
+    ActiveSheet.ShowAllData
+    Range("A2").Select
+    Sheets("Flat File MK II").Select
+    ActiveSheet.ShowAllData
+    Range("C6").Select
+    Sheets("Flat File MK II 2").Select
+    Sheets("Flat File MK II 2").Move After:=Sheets(5)
+    Sheets("JE Template").Select
+    ActiveWindow.SmallScroll Down:=-90
+    ActiveWorkbook.Save
+    ActiveWindow.Close
+    ActiveWorkbook.Save
+    ActiveWindow.Close
+    Application.WindowState = xlNormal
+    ActiveWindow.Close
+    Application.WindowState = xlNormal
+    Range("T13:T15").Select
+    Range("T15").Activate
+End Sub
+
+Sub aaabbbcccnewfile()
+'
+' aaabbbcccnewfile Macro
+'
+
+'
+    Sheets("YFI01").Select
+    Sheets.Add After:=ActiveSheet
+    Sheets("Sheet1").Select
+    Sheets("Sheet1").Name = "YFI01 Text"
+    Range("J34").Select
+    Sheets("YFI01").Select
+    Range("A1").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlUp)).Select
+    ActiveWindow.SmallScroll Down:=-3
+    Range("A1:X5").Select
+    Selection.Copy
+    Sheets("YFI01 Text").Select
+    Range("A1").Select
+    ActiveSheet.Paste
+    Sheets("YFI01 Text").Select
+    Application.CutCopyMode = False
+    Sheets("YFI01 Text").Move
+    
+    Dim path As String
+    path = "C:\Users\" & Environ("username") & "\SAP Uploads"
+    
+    ChDir path
+    
+        strName = path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".txt"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:= _
+        xlText, CreateBackup:=False
+    ActiveWindow.Close
+    Range("P24").Select
+End Sub
+Sub abcabcabcsaver()
+'
+' abcabcabcsaver Macro
+'
+
+'
+    Range("F2").Select
+    ActiveWindow.Close
+    Range("P40").Select
+    ActiveWindow.SmallScroll Down:=-42
+    Columns("M:R").Select
+    Range("R1").Activate
+    Selection.ColumnWidth = 8.71
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+    With Selection.Interior
+        .Pattern = xlNone
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+    Range("A17:R20").Select
+    Range("R17").Activate
+    Sheets("FB01 Format (2)").Select
+    Range("L43").Select
+    Sheets("YFI01").Select
+    Range("I35").Select
+    ActiveWindow.Close
+    Range("P126").Select
+    Sheets("JE Template").Select
+    Range("K37").Select
+    ActiveWindow.SmallScroll Down:=-15
+    Range("J1").Select
+    ActiveWorkbook.Save
+    Range("A1").Select
+    ActiveWindow.Close
+    Workbooks.Add
+    Windows("PERSONAL.XLSB").Activate
+    ActiveWindow.Visible = False
+    Range("R13").Select
+    Application.WindowState = xlNormal
+    Range("G22").Select
+    ActiveWindow.SmallScroll Down:=-33
+    ActiveWindow.Close
+    ActiveWindow.SmallScroll Down:=33
+    Application.WindowState = xlMaximized
+    Windows("Book6").Activate
+    Range("Q64").Select
+    Windows("Co 52.xlsx").Activate
+    Application.WindowState = xlMaximized
+    Application.Dialogs(xlDialogSendMail).Show
+    ActiveWindow.Close
+    Application.WindowState = xlNormal
+    Range("M24").Select
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=-15
+    Sheets("Summary & Analysis").Select
+    Range("J25").Select
+    ActiveWindow.SmallScroll Down:=12
+    Range("E55").Select
+    ActiveWindow.SmallScroll Down:=0
+    Range("A56").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-1]C,1)"
+    Range("A55").Select
+    Selection.Copy
+    Range("A56").Select
+    Selection.PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, _
+        SkipBlanks:=False, Transpose:=False
+    Application.CutCopyMode = False
+    Selection.AutoFill Destination:=Range("A56:A58"), Type:=xlFillDefault
+    Range("A56:A58").Select
+    Range("E64").Select
+    ActiveWindow.SmallScroll Down:=0
+    Range("C59").Select
+    ActiveWindow.SmallScroll Down:=-9
+    Range("D55").Select
+    ActiveWindow.SmallScroll Down:=-6
+    Range("D55").Select
+    ActiveCell.FormulaR1C1 = "=+R[-1]C+RC[-2]+RC[-1]"
+    Range("D55").Select
+    Selection.Copy
+    Range("D56").Select
+    ActiveSheet.Paste
+    Range("D57").Select
+    ActiveSheet.Paste
+    Range("D58").Select
+    ActiveSheet.Paste
+    Range("D55").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=+R[-1]C+RC[-2]+RC[-1]"
+    Range("D56").Select
+    Sheets("Reversal of CIP").Select
+    ActiveWindow.SmallScroll Down:=-105
+    Sheets("Email Support").Select
+    ActiveWindow.SmallScroll Down:=-36
+    Sheets("Email Support").Select
+    ActiveWindow.SmallScroll Down:=-30
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=33
+    Sheets("Template").Select
+    ActiveWindow.SmallScroll Down:=-18
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=-9
+    Range("D53").Select
+    ActiveCell.FormulaR1C1 = "=+R[-1]C+RC[-2]+RC[-1]"
+    Range("C52:C53").Select
+    ActiveWindow.SmallScroll Down:=-57
+    Sheets("Email Support").Select
+    ActiveWindow.SmallScroll Down:=-51
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=0
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=36
+    Range("E55").Select
+    ActiveCell.FormulaR1C1 = "2918000239"
+    Range("G60").Select
+    ActiveWindow.SmallScroll Down:=15
+    Range("G24").Select
+    Windows("Co 57 - IT04 - 48900000 - Other Payables - Apr-18 - CBS.xlsx"). _
+        Activate
+    ActiveWindow.SmallScroll Down:=-36
+    Range("C53").Select
+    ActiveWindow.SmallScroll Down:=-24
+    Range("C3:C53").Select
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=-42
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=-117
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=33
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=-15
+    Windows("2918000239 - Co 57 - Salary postings for Feb 2018 - 0218.xlsx"). _
+        Activate
+    ActiveWindow.SmallScroll Down:=-30
+    Windows("Co 57 - IT04 - 48900000 - Other Payables - Apr-18 - CBS.xlsx"). _
+        Activate
+    ActiveWindow.SmallScroll Down:=15
+    Range("C56").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=-6
+    Sheets("Summary & Analysis").Select
+    ActiveWindow.SmallScroll Down:=-30
+    Range("C3:C52,C54:C55").Select
+    Range("C54").Activate
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=60
+    Sheets("Garnish Agreement").Select
+    ActiveWindow.SmallScroll Down:=-84
+    Range("R17").Select
+    Application.Dialogs(xlDialogSendMail).Show
+    Sheets("Reversal of CIP").Select
+    ActiveWindow.SmallScroll Down:=90
+    Sheets("Template").Select
+    Range("P14").Select
+    ActiveWindow.Close
+    Range("K28").Select
+    ActiveWindow.SmallScroll Down:=-36
+    ActiveWindow.Close
+    Cells.Select
+    Cells.EntireColumn.AutoFit
+    Range("D13").Select
+    Columns("C:C").ColumnWidth = 6
+    Range("G11").Select
+    Columns("C:C").ColumnWidth = 15.43
+    Columns("N:N").ColumnWidth = 12
+    Columns("O:O").ColumnWidth = 6.14
+    Range("A4:O140").Select
+    Selection.AutoFilter
+    ActiveWindow.SmallScroll Down:=-15
+    ActiveSheet.Range("$A$4:$O$140").AutoFilter Field:=3, Criteria1:="<>"
+    ActiveWindow.SmallScroll Down:=-12
+    Range("I52").Select
+    ActiveWindow.SmallScroll Down:=63
+    Range("A1:O140").Select
+    Range("O140").Activate
+    Selection.Copy
+    Sheets.Add After:=ActiveSheet
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Columns("E:E").Select
+    Application.CutCopyMode = False
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("U14").Select
+    Columns("E:E").EntireColumn.AutoFit
+    Rows("5:5").Select
+    Selection.AutoFilter
+    Range("A5:O64").Select
+    Selection.AutoFilter
+    Selection.AutoFilter
+    Range("H19").Select
+    ActiveWindow.SmallScroll Down:=-39
+    ActiveSheet.Range("$A$5:$O$64").AutoFilter Field:=5, Operator:= _
+        xlFilterValues, Criteria2:=Array(0, "12/26/2017", 0, "12/31/2016")
+    Range("X51").Select
+    Columns("K:K").ColumnWidth = 13.57
+    Columns("M:M").ColumnWidth = 13.71
+    Columns("N:N").ColumnWidth = 17
+    ChDir _
+        "P:\Prince Minerals Accounting Dept\SAP - BE01 IT04\Stat Accounts - Italy"
+    ActiveWorkbook.SaveAs filename:= _
+        "P:\Prince Minerals Accounting Dept\SAP - BE01 IT04\Stat Accounts - Italy\Stat FA 2017.xlsx" _
+        , FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+    Range("K66").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=SUBTOTAL(9,R[-59]C:R[-7]C)"
+    Range("K67").Select
+    Workbooks.Open filename:= _
+        "P:\Prince Minerals Accounting Dept\SAP - BE01 IT04\Stat Accounts - Italy\STAT IT Ledger - PPE Rollforward Schedule Template - Prince Minerals 2017_PMIT.xlsm"
+    Windows("Stat FA 2017.xlsx").Activate
+    Columns("K:K").Select
+    Selection.Style = "Comma"
+    Range("K66").Select
+    Selection.Copy
+    Range("M66").Select
+    ActiveSheet.Paste
+    Columns("M:M").Select
+    Application.CutCopyMode = False
+    Selection.Style = "Comma"
+    Columns("N:N").Select
+    Selection.Style = "Comma"
+    Range("U52").Select
+    Windows( _
+        "STAT IT Ledger - PPE Rollforward Schedule Template - Prince Minerals 2017_PMIT.xlsm" _
+        ).Activate
+    Range("K5").Select
+    Windows("Stat FA 2017.xlsx").Activate
+    Columns("G:G").EntireColumn.AutoFit
+    ActiveSheet.ShowAllData
+    ActiveWindow.SmallScroll Down:=-3
+    Range("M26").Select
+    ActiveWindow.SmallScroll Down:=-9
+    Range("R23").Select
+    Sheets("Italy TFA ").Select
+    ActiveWindow.SmallScroll Down:=-219
+    Range("C14").Select
+    ActiveWindow.SmallScroll Down:=-51
+    Windows("Stat FA 2017.xlsx").Activate
+    Range("P6").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC[-13],'[2917002586 - Co 57 - Depreciation - 1217 - km.xlsx]Italy TFA '!C1,1,0)"
+    Range("P6").Select
+    Selection.AutoFill Destination:=Range("P6:P64")
+    Range("P6:P64").Select
+    ActiveWindow.SmallScroll Down:=-21
+    Windows("2917002586 - Co 57 - Depreciation - 1217 - km.xlsx").Activate
+    Range("A4").Select
+    ActiveCell.FormulaR1C1 = "40000501"
+    Range("M15:BQ16").Select
+    ActiveWindow.SmallScroll Down:=171
+    Windows("Stat FA 2017.xlsx").Activate
+    Range("C12").Select
+    Selection.Copy
+    Windows("2917002586 - Co 57 - Depreciation - 1217 - km.xlsx").Activate
+    Range("C182").Select
+    Cells.Find(What:="40000832", After:=ActiveCell, LookIn:=xlFormulas, _
+        LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, _
+        MatchCase:=False, SearchFormat:=False).Activate
+    ActiveWindow.SmallScroll Down:=-183
+    Range("A10").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Windows("Stat FA 2017.xlsx").Activate
+    Range("C29").Select
+    ActiveSheet.Paste
+    Range("T20").Select
+    ActiveWindow.SmallScroll Down:=-24
+    Range("N22").Select
+    Sheets("fa2017").Select
+    Windows("Book6").Activate
+    Windows("Stat FA 2017.xlsx").Activate
+    Windows( _
+        "STAT IT Ledger - PPE Rollforward Schedule Template - Prince Minerals 2017_PMIT.xlsm" _
+        ).Activate
+    Application.CutCopyMode = False
+    Sheets("Email Table").Copy Before:=Workbooks("Stat FA 2017.xlsx").Sheets(1)
+    Windows( _
+        "STAT IT Ledger - PPE Rollforward Schedule Template - Prince Minerals 2017_PMIT.xlsm" _
+        ).Activate
+    Sheets("IT Depn Balance Sheet 2017").Select
+    ActiveWindow.SmallScroll Down:=-114
+    Sheets("IT Depn Balance Sheet 2017").Copy Before:=Workbooks( _
+        "Stat FA 2017.xlsx").Sheets(3)
+    Windows( _
+        "STAT IT Ledger - PPE Rollforward Schedule Template - Prince Minerals 2017_PMIT.xlsm" _
+        ).Activate
+    Windows("Stat FA 2017.xlsx").Activate
+    Range("AE23").Select
+    ActiveWindow.SmallScroll Down:=-18
+    Sheets("fa2017").Select
+    ActiveWindow.SmallScroll Down:=51
+    Sheets("fa2017").Select
+    ActiveSheet.ShowAllData
+    ActiveWindow.SmallScroll Down:=24
+    Range("K115:K130").Select
+    Sheets("Sheet1").Select
+    Sheets("Sheet1").Move Before:=Sheets(3)
+    ActiveWindow.SmallScroll Down:=-18
+    Columns("P:P").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=30
+    Rows("43:43").Select
+    ActiveWindow.SmallScroll Down:=-39
+    ActiveSheet.Range("$A$5:$O$64").AutoFilter Field:=5, Operator:= _
+        xlFilterValues, Criteria2:=Array(0, "12/26/2017", 0, "12/31/2016")
+    ActiveWindow.SmallScroll Down:=6
+    Range("C45:O59").Select
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = -4.99893185216834E-02
+        .PatternTintAndShade = 0
+    End With
+    Range("L51").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Range("E7:E39").Select
+    Selection.SpecialCells(xlCellTypeVisible).Select
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .Color = 13434879
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+    Range("U50").Select
+    Sheets("Email Table").Select
+    Sheets.Add After:=ActiveSheet
+    Sheets("Sheet4").Select
+    Sheets("Sheet4").Move After:=Sheets(5)
+    Sheets("Sheet1").Select
+    Range("Q7").Select
+    Sheets("Sheet4").Select
+    Range("B2").Select
+    ActiveSheet.Paste
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Selection.ShapeRange.IncrementLeft 27.75
+    Selection.ShapeRange.IncrementTop 220.5
+    Rows("3:8").Select
+    Selection.Insert Shift:=xlDown
+    Selection.Insert Shift:=xlDown
+    Range("B16").Select
+    ActiveCell.FormulaR1C1 = _
+        " Super-depreciation for tax purposes: PMIT has the possibility to exploit an extra tax deduction equal to 40% of the tax relevant annual depreciation expense of new fixed assets functional to the business which PMIT has purchased and placed in service during FYs 2016 and 2017. If you wish to benefit from this possibility, please provide us with the calculation of th" & _
+        "e tax depreciation amount for the year 2017: " & _
+        ""
+    With ActiveCell.Characters(Start:=1, Length:=0).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=1, Length:=1).Font
+        .Name = "Times New Roman"
+        .FontStyle = "Regular"
+        .Size = 7
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontNone
+    End With
+    With ActiveCell.Characters(Start:=2, Length:=35).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleSingle
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=37, Length:=125).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=162, Length:=115).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleSingle
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=277, Length:=94).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=371, Length:=23).Font
+        .Name = "Calibri"
+        .FontStyle = "Bold"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=394, Length:=-138).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    Rows("6:12").Select
+    Selection.Insert Shift:=xlDown
+    ActiveWindow.SmallScroll Down:=15
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Selection.ShapeRange.IncrementLeft 32.25
+    Selection.ShapeRange.IncrementTop -467.25
+    ActiveWindow.DisplayGridlines = False
+    Columns("A:A").Select
+    Selection.Delete Shift:=xlToLeft
+    Range("B2").Select
+    Range("A2").Select
+    ActiveCell.FormulaR1C1 = _
+        "As far as the FY 2017 depreciation is concerned, from a tax point of view the accounting annual depreciation expense is deductible only up to the limit of the fiscally relevant amounts, which are summarized in the table below (based on the type of tangible asset). Please note that, for the assets purchased during FY 2017, the tax depreciation rates below need to be " & _
+        "reduced to 50% of their amount in the 1st year, independently of the date of purchase (no pro-rata temporis for the calculation of the annual depreciation). Please indicate to us – for each category of assets – whether there are any differences between the accounting depreciation expenses in the 2017 P&L and the fiscally relevant depreciation expenses calculated as " & _
+        "described above." & _
+        ""
+    With ActiveCell.Characters(Start:=1, Length:=0).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=1, Length:=56).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=57, Length:=17).Font
+        .Name = "Calibri"
+        .FontStyle = "Bold"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=74, Length:=334).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=408, Length:=2).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = True
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=410, Length:=49).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=459, Length:=17).Font
+        .Name = "Calibri"
+        .FontStyle = "Italic"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=476, Length:=74).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=550, Length:=27).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleSingle
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=577, Length:=-321).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    Range("A2").Select
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlCenter
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 7
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlCenter
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("A2").Select
+    Application.FormulaBarHeight = 2
+    ActiveCell.FormulaR1C1 = _
+        "As far as the FY 2017 depreciation is concerned, from a tax point of view the accounting annual depreciation expense is deductible only up to the limit of the fiscally relevant amounts, which are summarized in the table below (based on the type of tangible asset). "
+    With ActiveCell.Characters(Start:=1, Length:=56).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=57, Length:=17).Font
+        .Name = "Calibri"
+        .FontStyle = "Bold"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    With ActiveCell.Characters(Start:=74, Length:=182).Font
+        .Name = "Calibri"
+        .FontStyle = "Regular"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .Color = -10477568
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontMinor
+    End With
+    Range("B3").Select
+    ActiveSheet.Paste
+    Range("A2").Select
+    Selection.Copy
+    Range("B3").Select
+    Selection.PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, _
+        SkipBlanks:=False, Transpose:=False
+    Application.CutCopyMode = False
+    Range("S15").Select
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Range("P9").Select
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Selection.ShapeRange.IncrementLeft -59.25
+    Selection.ShapeRange.IncrementTop -8.25
+    Selection.ShapeRange.IncrementLeft 0.75
+    Selection.ShapeRange.IncrementLeft 0.75
+    Selection.ShapeRange.IncrementLeft 0.75
+    Selection.ShapeRange.IncrementLeft 0.75
+    Selection.ShapeRange.IncrementLeft 1.5
+    Selection.ShapeRange.IncrementLeft 1.5
+    Selection.ShapeRange.IncrementLeft 1.5
+    Selection.ShapeRange.IncrementLeft 2.25
+    Selection.ShapeRange.IncrementLeft 2.25
+    Selection.ShapeRange.IncrementLeft 2.25
+    Selection.ShapeRange.IncrementLeft 3
+    Selection.ShapeRange.IncrementLeft 3
+    Selection.ShapeRange.IncrementLeft 3
+    Selection.ShapeRange.IncrementLeft 3.75
+    Selection.ShapeRange.IncrementLeft 3.75
+    Selection.ShapeRange.IncrementLeft 3.75
+    Selection.ShapeRange.IncrementLeft 4.5
+    Selection.ShapeRange.IncrementLeft 4.5
+    Selection.ShapeRange.IncrementLeft 4.5
+    Selection.ShapeRange.IncrementLeft 5.25
+    Selection.ShapeRange.IncrementLeft 5.25
+    Selection.ShapeRange.IncrementLeft 5.25
+    Selection.ShapeRange.IncrementLeft 6
+    Selection.ShapeRange.IncrementLeft 6
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -2.25
+    Selection.ShapeRange.IncrementLeft -2.25
+    Selection.ShapeRange.IncrementLeft -2.25
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Range("P6").Select
+    ActiveCell.FormulaR1C1 = "0.04"
+    Range("P7").Select
+    ActiveCell.FormulaR1C1 = "0.1"
+    Range("P8").Select
+    ActiveCell.FormulaR1C1 = "0.115"
+    Range("P9").Select
+    ActiveCell.FormulaR1C1 = "0.4"
+    Range("P10").Select
+    ActiveCell.FormulaR1C1 = "0.15"
+    Range("P11").Select
+    ActiveCell.FormulaR1C1 = "0.12"
+    Range("P12").Select
+    ActiveCell.FormulaR1C1 = "0.2"
+    Range("P13").Select
+    ActiveCell.FormulaR1C1 = "0.2"
+    Range("P14").Select
+    ActiveCell.FormulaR1C1 = "0.25"
+    Range("P6:P14").Select
+    Selection.Style = "Percent"
+    Range("P5").Select
+    ActiveCell.FormulaR1C1 = "%"
+    Range("P5").Select
+    With Selection
+        .HorizontalAlignment = xlRight
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("U17").Select
+    Sheets("fa2017").Select
+    Range("H125").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Sheets("Sheet1").Select
+    Sheets("Sheet1").Name = "Analysis"
+    Sheets("Analysis").Select
+    With ActiveWorkbook.Sheets("Analysis").Tab
+        .Color = 65535
+        .TintAndShade = 0
+    End With
+    Range("S46:S47").Select
+    ActiveWindow.SmallScroll Down:=-15
+    Rows("45:59").Select
+    Selection.Delete Shift:=xlUp
+    Range("G56").Select
+    Sheets("fa2016").Copy Before:=Workbooks("Stat FA 2017.xlsx").Sheets(3)
+    Sheets("Analysis").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Range("Q5").Select
+    ActiveCell.FormulaR1C1 = "Depn in 2016"
+    Range("Q7").Select
+    ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-14],'fa2016'!C[-14]:C[-4],11,0)"
+    Range("Q7").Select
+    Selection.FillDown
+    Columns("Q:Q").ColumnWidth = 8.57
+    Columns("Q:Q").EntireColumn.AutoFit
+    ActiveCell.FormulaR1C1 = _
+        "=IFERROR(VLOOKUP(RC[-14],'fa2016'!C[-14]:C[-4],11,0),0)"
+    Range("Q7").Select
+    Selection.FillDown
+    Range("R5").Select
+    ActiveCell.FormulaR1C1 = "Depn in 2017"
+    Range("R7").Select
+    Columns("R:R").ColumnWidth = 13.29
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-5]-RC[-1]"
+    Range("R7").Select
+    Selection.FillDown
+    Range("Q7:R39").Select
+    Selection.Style = "Comma"
+    Range("K7:N51").Select
+    Selection.Style = "Comma"
+    Range("Q61").Select
+    Columns("P:P").ColumnWidth = 2.14
+    Range("G57").Select
+    Sheets("Sheet4").Select
+    Sheets("Sheet4").Name = "Instructions"
+    Range("K30").Select
+    Sheets("Instructions").Select
+    Sheets("Instructions").Move Before:=Sheets(1)
+    Sheets("Email Table").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Sheets("Email Table").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Sheets("fa2017").Select
+    ActiveWindow.SmallScroll Down:=-36
+    Sheets("Analysis").Select
+    Range("K7:K39").Select
+    Sheets("Analysis").Select
+    Range("K8:K15,K19:K20").Select
+    Range("K19").Activate
+    Sheets("Analysis").Select
+    Range("G55").Select
+    Sheets("Analysis").Select
+    Sheets("Analysis").Name = "Acquisitions Analysis"
+    Range("R7").Select
+    Columns("P:P").ColumnWidth = 1.57
+    Columns("L:L").ColumnWidth = 2
+    ActiveSheet.ShowAllData
+    Sheets("Instructions").Select
+    Range("P6").Select
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -1.5
+    Selection.ShapeRange.IncrementLeft -2.25
+    Selection.ShapeRange.IncrementLeft -2.25
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Range("O5").Select
+    ActiveCell.FormulaR1C1 = "Class"
+    Range("O6").Select
+    ActiveCell.FormulaR1C1 = "1"
+    Range("O7").Select
+    ActiveCell.FormulaR1C1 = "2"
+    Range("O8").Select
+    ActiveCell.FormulaR1C1 = "3"
+    Range("O9").Select
+    ActiveCell.FormulaR1C1 = "4"
+    Range("O10").Select
+    ActiveCell.FormulaR1C1 = "5"
+    Range("O11").Select
+    ActiveCell.FormulaR1C1 = "6"
+    Range("O12").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("O13").Select
+    ActiveCell.FormulaR1C1 = "8"
+    Range("O14").Select
+    ActiveCell.FormulaR1C1 = "9"
+    Range("O5:P5").Select
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("O6:O14").Select
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("P6:P14").Select
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("O5:P14").Select
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    With Selection.Borders(xlEdgeLeft)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    With Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    With Selection.Borders(xlEdgeBottom)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    With Selection.Borders(xlEdgeRight)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    With Selection.Borders(xlInsideVertical)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    With Selection.Borders(xlInsideHorizontal)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    Range("T15").Select
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Selection.ShapeRange.IncrementLeft -0.75
+    Selection.ShapeRange.IncrementLeft -0.75
+    Range("T10").Select
+    ActiveSheet.Shapes.Range(Array("Immagine 1")).Select
+    Selection.ShapeRange.ScaleHeight 1.0049751244, msoFalse, msoScaleFromTopLeft
+    Range("V15").Select
+    Sheets("Acquisitions Analysis").Select
+    Columns("P:P").ColumnWidth = 1.86
+    Columns("S:S").ColumnWidth = 1.29
+    Columns("T:T").ColumnWidth = 12.57
+    Sheets("Acquisitions Analysis").Select
+    Range("T5").Select
+    ActiveCell.FormulaR1C1 = "Fiscal Class"
+    Range("T10").Select
+    ActiveCell.FormulaR1C1 = "3"
+    Range("T10").Select
+    Selection.Copy
+    Range("T6:T10").Select
+    ActiveSheet.Paste
+    Range("10:10,13:13,16:16,21:21,25:25").Select
+    Range("A25").Activate
+    ActiveWindow.SmallScroll Down:=9
+    Range("10:10,13:13,16:16,21:21,25:25,30:30").Select
+    Range("A30").Activate
+    ActiveWindow.SmallScroll Down:=12
+    Range("10:10,13:13,16:16,21:21,25:25,30:30,40:40,45:45").Select
+    Range("A45").Activate
+    Selection.Font.Bold = True
+    Rows("46:49").Select
+    Application.CutCopyMode = False
+    Selection.Delete Shift:=xlUp
+    Range("M47").Select
+    ActiveCell.FormulaR1C1 = "=SUBTOTAL(9,R[-40]C:R[-3]C)"
+    Range("M47").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = _
+        "=SUM(R[-37]C,R[-34]C,R[-31]C,R[-26]C,R[-22]C,R[-17]C,R[-7]C)"
+    Range("M47").Select
+    Selection.Copy
+    Range("K47").Select
+    ActiveSheet.Paste
+    Range("R44").Select
+    ActiveWindow.SmallScroll Down:=-27
+    Range("T9:T10").Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Range("T12").Select
+    ActiveSheet.Paste
+    Range("T15").Select
+    ActiveSheet.Paste
+    Range("T20").Select
+    ActiveSheet.Paste
+    Range("T20").Select
+    Application.CutCopyMode = False
+    Selection.AutoFill Destination:=Range("T18:T20"), Type:=xlFillDefault
+    Range("T18:T20").Select
+    Range("V20").Select
+    ActiveWindow.SmallScroll Down:=-3
+    Range("Q4").Select
+    ActiveCell.FormulaR1C1 = "New Additions"
+    Range("Q4").Select
+    ActiveCell.FormulaR1C1 = "New Additions - Super Depn"
+    Range("T23").Select
+    ActiveCell.FormulaR1C1 = "4"
+    Range("T24").Select
+    ActiveCell.FormulaR1C1 = "4"
+    Range("T25").Select
+    ActiveCell.FormulaR1C1 = "4"
+    Range("T26").Select
+    ActiveWindow.SmallScroll Down:=-3
+    Columns("K:N").Select
+    Selection.Style = "Comma"
+    ActiveWindow.SmallScroll Down:=12
+    Range("M26").Select
+    ActiveWindow.SmallScroll Down:=-9
+    Range("R29").Select
+    ActiveWindow.SmallScroll Down:=0
+    Range("T33").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T34").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T35").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T36").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T37").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T38").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T39").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T40").Select
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T41").Select
+    ActiveWindow.SmallScroll Down:=-12
+    Range("T33").Select
+    Selection.Copy
+    Range("T29").Select
+    ActiveSheet.Paste
+    Range("T30").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "7"
+    Range("T31").Select
+    ActiveWindow.SmallScroll Down:=6
+    Application.ActiveProtectedViewWindow.Edit
+    Columns("F:F").EntireColumn.AutoFit
+    Columns("G:G").EntireColumn.AutoFit
+    Columns("H:H").EntireColumn.AutoFit
+    Range("H17").Select
+    ActiveWindow.SmallScroll Down:=-3
+    ActiveWindow.Close
+    ActiveWindow.SmallScroll Down:=-30
+    Sheets("Acquisitions Analysis").Select
+    Range("U5").Select
+    Sheets("Acquisitions Analysis").Select
+    ActiveCell.FormulaR1C1 = "Tax Depn rate"
+    Range("U6").Select
+    Columns("U:U").EntireColumn.AutoFit
+    ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-1],Instructions!C[-6]:C[-5],2,0)"
+    Range("U6").Select
+    Selection.AutoFill Destination:=Range("U6:U46"), Type:=xlFillDefault
+    Range("U6:U46").Select
+    Range("U41:U46").Select
+    Selection.ClearContents
+    Range("U31:U32").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=-21
+    Range("U26:U28").Select
+    Selection.ClearContents
+    Range("U22").Select
+    Selection.ClearContents
+    Range("U17").Select
+    Selection.ClearContents
+    Range("U14").Select
+    Selection.ClearContents
+    Range("U11").Select
+    Selection.ClearContents
+    ActiveWindow.SmallScroll Down:=-9
+    Range("W11").Select
+    ActiveWindow.SmallScroll ToRight:=2
+    Columns("V:V").ColumnWidth = 12.71
+    Range("V5").Select
+    ActiveCell.FormulaR1C1 = "First Year"
+    Range("V5").Select
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+       .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("V7").Select
+    ActiveSheet.Range("$A$5:$O$45").AutoFilter Field:=5, Operator:= _
+        xlFilterValues, Criteria2:=Array(0, "12/26/2017")
+    ActiveWindow.SmallScroll Down:=-9
+    Range("M8:M20").Select
+    ActiveSheet.ShowAllData
+    ActiveWindow.SmallScroll Down:=-3
+    Range("G16").Select
+    ActiveSheet.Range("$A$5:$O$45").AutoFilter Field:=5, Operator:= _
+        xlFilterValues, Criteria2:=Array(0, "12/26/2017", 0, "12/31/2016")
+    Range("M19,M20,M8:M15").Select
+    Range("M15").Activate
+    Sheets("Acquisitions Analysis").Select
+    Range("J49").Select
+    ActiveCell.FormulaR1C1 = "Add 2017"
+    Range("K49").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = _
+        "=SUM(R[-41]C,R[-40]C,R[-37]C,R[-34]C,R[-30]C,R[-29]C)"
+    Range("J49").Select
+    ActiveCell.FormulaR1C1 = "Add. 2017"
+    Range("N56").Select
+    ActiveSheet.Range("$A$5:$O$45").AutoFilter Field:=5, Operator:= _
+        xlFilterValues, Criteria2:=Array(0, "12/26/2017")
+    Range("U8:U20").Select
+    Selection.Style = "Percent"
+    Columns("V:V").Select
+    Selection.Insert Shift:=xlToRight
+    Range("U5").Select
+    Selection.Copy
+    Range("V5").Select
+    ActiveSheet.Paste
+    Range("V8").Select
+    Application.CutCopyMode = False
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-1]*RC[-11]"
+    Range("V8").Select
+    Selection.Style = "Comma"
+    Range("V8").Select
+    Selection.Copy
+    Range("V9").Select
+    ActiveSheet.Paste
+    Range("V12").Select
+    ActiveSheet.Paste
+   Range("V15").Select
+    ActiveSheet.Paste
+    Range("V19").Select
+    ActiveSheet.Paste
+    Range("V20").Select
+    ActiveSheet.Paste
+    Range("W8").Select
+    ActiveSheet.Range("$A$5:$O$45").AutoFilter Field:=5, Operator:= _
+        xlFilterValues, Criteria2:=Array(0, "12/26/2017", 0, "12/31/2016")
+    Columns("U:U").Select
+    Application.CutCopyMode = False
+    Selection.Style = "Percent"
+    Range("V20").Select
+    Selection.Copy
+    Range("V24").Select
+    ActiveSheet.Paste
+    Range("V37").Select
+    ActiveSheet.Paste
+    Range("V38").Select
+    ActiveSheet.Paste
+    Range("V39").Select
+    ActiveSheet.Paste
+    Range("V18").Select
+    ActiveSheet.Paste
+    Range("V7").Select
+    ActiveSheet.Paste
+    Range("V7:V39").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("G61").Select
+    Sheets("Acquisitions Analysis").Select
+    Sheets("Acquisitions Analysis").Move Before:=Sheets(1)
+    ActiveWindow.SmallScroll Down:=-21
+    Windows("fa2016.XLS").Activate
+    Windows("Stat FA 2017.xlsx").Activate
+    ActiveWindow.SmallScroll Down:=-12
+    Range("M59").Select
+    Sheets("Acquisitions Analysis").Select
+    ActiveWindow.SmallScroll Down:=-12
+    ActiveSheet.ShowAllData
+    ActiveWindow.SmallScroll Down:=-18
+    ActiveWorkbook.Save
+    Range("G12").Select
+    Application.Dialogs(xlDialogSendMail).Show
+    ActiveWindow.SmallScroll Down:=-42
+    ActiveWindow.Close
+    ActiveWindow.Close
+    ActiveWindow.Close
+    ActiveWindow.Close
+    ActiveWindow.Close
+End Sub
+
+Sub Balance_Sheet_Update_SAP_IT()
+'
+' Balance_Sheet_Update_SAP Macro
+'
+
+
+
+    Application.ScreenUpdating = False
+
+    Sheets("Template").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "GL Bal OneStream"
+    Range("j1").Select
+    ActiveCell.FormulaR1C1 = "T#2018M12, T#2018M11, T#2018M10, T#2018M9, T#2018M8, T#2018M7, T#2018M6, T#2018M5, T#2018M4, T#2018M3, T#2018M2, T#2018M1, T#2017M12, T#2017M11, T#2017M10, T#2017M9, T#2017M8, T#2017M7, T#2017M6, T#2017M5, T#2017M4, T#2017M3, T#2017M2, T#2017M1"
+
+    Range("J2").Select
+    ActiveCell.FormulaR1C1 = "PMIT"
+    
+    Range("K2").Select
+    ActiveCell.FormulaR1C1 = "EUR"
+    
+    Range("L2").Select
+    ActiveCell.FormulaR1C1 = "A#Root.List(BalanceSheet)"
+    
+    Range("M2").Select
+    ActiveCell.FormulaR1C1 = "=""U4#Root.List(""&Template!R[3]C[-6]&"")"""
+    
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "Co 57 - IT04 Prince Minerals Italy"
+    
+    Range("A2").Select
+    Columns("A:A").EntireColumn.AutoFit
+    
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Co ""&Template!R[3]C[5]&"" - ""&Template!R[4]C[5]&"" - ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - CBS"""
+
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Note - OneStream account names align with Co. 7 chart of accounts; to confirm, in Co 52 Account # ""&Template!R[3]C[5]&"" is ""&Template!R[4]C[5]"
+    Rows("3:3").Select
+    Selection.Insert Shift:=xlDown
+    
+    Range("C4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("D4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("E4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("F4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("H4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("I4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("J4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("K4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("L4").Select
+        ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("m4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("n4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("o4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("p4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("q4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("r4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("s4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("t4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("u4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("v4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("w4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("x4").Select
+      ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("y4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("Z4").Select
+    ActiveCell.FormulaR1C1 = "1/31/2017"
+    Rows("4:4").Select
+    Selection.NumberFormat = "mmm-yy"
+    
+        Range("C9").Select
+    ActiveCell.FormulaR1C1 = "=R[-3]C"
+        Selection.AutoFill Destination:=Range("C9:z9        "), Type:=xlFillDefault
+    
+    Range("B9").Select
+    ActiveCell.FormulaR1C1 = "GL Balance"
+    Range("B13").Select
+    ActiveCell.FormulaR1C1 = "Current Month"
+    Range("c13").Select
+    ActiveCell.FormulaR1C1 = "=Template!R[-6]C[4]"
+    Range("C15").Select
+    ActiveCell.FormulaR1C1 = "=Template!R[6]C[1]"
+    Selection.AutoFill Destination:=Range("C15:G15"), Type:=xlFillDefault
+    Range("C16").Select
+      ActiveCell.FormulaR1C1 = "=R[-3]C"
+    Range("D16").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],-1)"
+    Range("E16").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-3]C[-2],MOD(-MONTH(R[-3]C[-2]),3)-3)"
+    Range("F16").Select
+    ActiveCell.FormulaR1C1 = "=DATE(YEAR(RC[1]),12,31)"
+    Range("G16").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-4],-12)"
+    Range("c16:g16").Select
+    Selection.NumberFormat = "mmm-yy"
+    Range("C18").Select
+    ActiveCell.FormulaR1C1 = "=HLOOKUP(R[-2]C,R[-14]:R[-9],6,0)"
+
+    Selection.AutoFill Destination:=Range("C18:G18"), Type:=xlFillDefault
+
+
+    Sheets("Template").Select
+    Range("G12:H14").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+    End With
+  
+      Range("G7:I8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G7:G8").Select
+        With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+  
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "57 - IT04"
+    Range("G14:H14").Select
+    Selection.ClearContents
+    Range("I14").Select
+    Selection.ClearContents
+    Range("G12:H12").Select
+    ActiveCell.FormulaR1C1 = "Chris Sharples"
+    Range("J12").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Range("J12").Select
+    Selection.Copy
+    Range("I12").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("J12").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("G7:I7").Select
+    ActiveCell.FormulaR1C1 = "8/31/2018"
+    Range("G8:I8").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=YEAR(R[-1]C)"
+    Range("G7").Select
+    Selection.NumberFormat = "mmm-yy"
+
+    Range("D22").Select
+   ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-6]C[-1]"
+
+    Range("E22").Select
+   ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-6]C[-1]"
+
+    Range("F22").Select
+   ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-6]C[-1]"
+
+    Range("G22").Select
+   ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-6]C[-1]"
+
+    Range("H22").Select
+   ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-6]C[-1]"
+    
+    Range("D29").Select
+    ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-11]C[-1]"
+        
+       
+    Range("D29").Select
+    Selection.AutoFill Destination:=Range("D29:H29"), Type:=xlFillDefault
+    Range("D29:H29").Select
+    Sheets("Template").Select
+
+
+Application.ScreenUpdating = True
+
+End Sub
+
+
+
+Sub aaaa_test()
+
+
+'
+' Balance_Sheet_Update_SAP Macro
+'
+
+'
+    Sheets("Template").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "GL Bal OneStream"
+    
+End Sub
+Sub Macro4()
+'
+' Macro4 Macro
+'
+
+'
+    Range("G7:I8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G7:G8").Select
+    Range("M9").Select
+    ActiveWindow.Close
+End Sub
+Sub aaaaaaaaa()
+'
+' aaaaaaaaa Macro
+'
+
+'
+    Range("G7:G8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("K13").Select
+End Sub
+
+Sub pdf_defunct()
+'
+'PDF Macro - will save the current workbook under the current file name as a PDF ready to sign and add posting data
+'
+
+'
+Application.ScreenUpdating = False
+
+If Sheets("Accounts").Visible = True Then Sheets("Accounts").Visible = False Else Sheets("Accounts").Visible = True
+
+
+Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-2]"
+    Range("O2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-4]"
+    Range("P2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-5]"
+    Range("P2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("M2:P2").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+    Sheets("JE Template").Select
+    ActiveSheet.Range("$B$13:$P$514").AutoFilter Field:=1, Criteria1:= _
+"<>---  ---", Operator:=xlFilterValues
+
+    Sheets("Flat File MK II").Select
+        ActiveSheet.Range("$A$1:$P$500").AutoFilter Field:=1, Criteria1:= _
+"<>---  ---", Operator:=xlFilterValues
+
+    Sheets("JE Template").Select
+    
+    Application.ScreenUpdating = True
+
+
+    Dim strName As String
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".pdf"
+
+
+    ChDir ActiveWorkbook.path & "\"
+    ActiveWorkbook.ExportAsFixedFormat Type:=xlTypePDF, filename:= _
+        strName, Quality:=xlQualityStandard, _
+        IncludeDocProperties:=True, IgnorePrintAreas:=False, OpenAfterPublish:= _
+        True
+
+
+    Sheets("Flat File MK II").Select
+    ActiveSheet.ShowAllData
+    Rows("1:1").Select
+    Selection.AutoFilter
+    Sheets("JE Template").Select
+    ActiveSheet.ShowAllData
+    Rows("13:13").Select
+    Selection.AutoFilter
+    Range("m2:p2").Select
+
+ If Sheets("Accounts").Visible = False Then Sheets("Accounts").Visible = True Else Sheets("Accounts").Visible = True
+
+
+Application.ScreenUpdating = False
+
+End Sub
+
+Sub PDF05102018()
+
+    Sheets("JE Template").Select
+
+    Range("M2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-10]"
+    Range("M2").Select
+    Selection.NumberFormat = "0"
+    Range("N2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[2]C[-2]"
+    Range("O2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-4]"
+    Range("P2").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=R[-1]C[-5]"
+    Range("P2").Select
+    Selection.NumberFormat = "m/d/yyyy"
+    Range("M2:P2").Select
+    With Selection.Font
+        .ThemeColor = xlThemeColorDark1
+        .TintAndShade = 0
+    End With
+
+
+    Dim strName As String
+    strName = ActiveWorkbook.path & "\" & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 5) & ".pdf"
+
+    Application.ScreenUpdating = False
+    Sheets("JE Template").Select
+    
+    ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, _
+            filename:=strName, _
+            OpenAfterPublish:=True
+    
+    
+    Range("m2:p2").Select
+    
+    
+    Application.ScreenUpdating = True
+    
+    
+    
+    
+End Sub
+
+Sub Balance_Sheet_Update_SAP_PMB()
+'
+' Balance_Sheet_Update_SAP Macro
+'
+
+
+
+    Application.ScreenUpdating = False
+
+    Sheets("Template").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "GL Bal OneStream"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""T#""&YEAR(Template!R7C7)&""M""&MONTH(Template!R7C7)&"", T#""&YEAR(EOMONTH(Template!R7C7,-1))&""M""&MONTH(EOMONTH(Template!R7C7,-1))&"", T#""&YEAR(DATE(YEAR(Template!R7C7),FLOOR(MONTH(Template!R7C7),3)+1,0))&""M""&MONTH(DATE(YEAR(Template!R7C7),FLOOR(MONTH(Template!R7C7)-1,3)+1,0))&"", T#""&YEAR(Template!R7C7)-1&""M""&12&"", T#""&YEAR(Template!R7C7)-1&""M""&MONT" & _
+        "H(Template!R7C7)" & _
+        ""
+
+    Range("K2").Select
+    ActiveCell.FormulaR1C1 = "PMB"
+    
+    Range("L2").Select
+    ActiveCell.FormulaR1C1 = "EUR"
+    
+    Range("M2").Select
+    ActiveCell.FormulaR1C1 = "A#Root.List(BalanceSheet)"
+    
+    Columns("M:M").EntireColumn.AutoFit
+    
+    Range("N2").Select
+    ActiveCell.FormulaR1C1 = "=""U4#Root.List(""&Template!R[3]C[-7]&"")"""
+    
+
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "Co 56 - BE01 Prince Minerals Belgium"
+    
+    Range("A2").Select
+    Columns("A:A").EntireColumn.AutoFit
+    
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Co ""&Template!R[3]C[5]&"" - ""&Template!R[4]C[5]&"" - ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - CBS"""
+
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Note - OneStream account names align with Co. 7 chart of accounts; to confirm, in Co 52 Account # ""&Template!R[3]C[5]&"" is ""&Template!R[4]C[5]"
+
+    Range("C3").Select
+    ActiveCell.FormulaR1C1 = "CM"
+    Range("D3").Select
+    ActiveCell.FormulaR1C1 = "PM"
+    Range("E3").Select
+    ActiveCell.FormulaR1C1 = "PQ"
+    Range("F3").Select
+    ActiveCell.FormulaR1C1 = "PY"
+    Range("G3").Select
+    ActiveCell.FormulaR1C1 = "PYM"
+    Range("B7").Select
+    ActiveCell.FormulaR1C1 = "GL Balance"
+    Range("B8").Select
+    ActiveCell.FormulaR1C1 = "JE"
+    Range("B9").Select
+    ActiveCell.FormulaR1C1 = "Corrected GL Balance"
+    Range("B7:B9").Select
+    With Selection
+        .HorizontalAlignment = xlRight
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Range("B8").Select
+    With Selection.Font
+        .Color = -16776961
+       .TintAndShade = 0
+    End With
+    Range("C9").Select
+    Selection.Borders(xlDiagonalDown).LineStyle = xlNone
+    Selection.Borders(xlDiagonalUp).LineStyle = xlNone
+    Selection.Borders(xlEdgeLeft).LineStyle = xlNone
+    With Selection.Borders(xlEdgeTop)
+        .LineStyle = xlContinuous
+        .ColorIndex = 0
+        .TintAndShade = 0
+        .Weight = xlThin
+    End With
+    Selection.Borders(xlEdgeBottom).LineStyle = xlNone
+    Selection.Borders(xlEdgeRight).LineStyle = xlNone
+    Selection.Borders(xlInsideVertical).LineStyle = xlNone
+    Selection.Borders(xlInsideHorizontal).LineStyle = xlNone
+
+
+
+    Sheets("Template").Select
+    Range("G12:H14").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+    End With
+ 
+      Range("G7:I8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G7:G8").Select
+        With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+  
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "56 - BE01"
+    Range("G14:H14").Select
+    Selection.ClearContents
+    Range("I14").Select
+    Selection.ClearContents
+    Range("G12:H12").Select
+    ActiveCell.FormulaR1C1 = "Chris Sharples"
+    Range("J12").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Range("J12").Select
+    Selection.Copy
+    Range("I12").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("J12").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("G7:I7").Select
+    ActiveCell.FormulaR1C1 = "4/30/2018"
+    Range("G8:I8").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=YEAR(R[-1]C)"
+    Range("G7").Select
+    Selection.NumberFormat = "mmm-yy"
+
+    Range("D22").Select
+    ActiveCell.FormulaR1C1 = "=R[-15]C[3]"
+
+    Range("E22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],-1)"
+
+    Range("F22").Select
+        ActiveCell.FormulaR1C1 = "=EOMONTH(R[-15]C[1],MOD(-MONTH(R[-15]C[1]),3)-3)"
+
+    Range("G22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-3],-MONTH(RC[-3]))"
+
+    Range("H22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-4],-12)"
+    
+    Range("D29").Select
+    ActiveCell.FormulaR1C1 = "='GL Bal OneStream'!R[-22]C[-1]"
+    
+    Range("D29").Select
+    Selection.AutoFill Destination:=Range("D29:H29"), Type:=xlFillDefault
+    Range("D29:H29").Select
+    Sheets("Template").Select
+
+
+Application.ScreenUpdating = True
+
+End Sub
+
+
+
+Sub create_textfile_in_directory()
+
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+    
+    Sheets("YFI01 Format").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "YFI01 Upload"
+    
+    Sheets("YFI01 Format").Select
+    ActiveSheet.Range("$A$1:$X$5000").AutoFilter Field:=1, Criteria1:="<>"
+    Range("A1").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Sheets("YFI01 Upload").Select
+    Range("A1").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+    Dim path As String
+    Dim strName As String
+
+    Sheets("YFI01 Upload").Select
+        
+    Sheets("YFI01 Upload").Move
+    path = "C:\Users\" & Environ("username") & "\SAP Uploads"
+    ChDir path
+    
+    strName = path & "\" & Range("a2") & " - " & Range("f2") & ".txt"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:= _
+        xlText, CreateBackup:=False
+    
+    ActiveWindow.Close
+    
+    Sheets("JE Template").Select
+    Range("c4").Select
+
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+        
+
+End Sub
+
+
+Sub aaaaabbbbbccccdddddosomething()
+Dim strLastOpen As String
+strLastOpen = Application.RecentFiles(1).Name
+Set wkb = Workbooks.Open(strLastOpen)
+End Sub
+
+Sub insert_sheet()
+'
+' insert_sheet Macro
+'
+
+'
+    Sheets.Add After:=ActiveSheet
+    Sheets("Sheet1").Select
+    Sheets("Sheet1").Name = "GL Bal OneStream"
+    Range("J32").Select
+End Sub
+Sub formulas()
+'
+' formulas Macro
+'
+
+'
+
+    Sheets("GL Bal OneStream").Select
+    Range("J2").Select
+    ActiveCell.FormulaR1C1 = "EUR"
+    Range("K2").Select
+    ActiveCell.FormulaR1C1 = "PMB"
+    Range("L2").Select
+        ActiveCell.FormulaR1C1 = "A#Root.List(BalanceSheet)"
+      Range("M2").Select
+    ActiveCell.FormulaR1C1 = "=""U4#Root.List(""&Template!R[-8]C[-1]&"")"""
+
+    Range("H11:H22").Select
+    Selection.ClearContents
+    Range("K1:M7").Select
+    Range("M7").Activate
+    Selection.ClearContents
+    Range("N2").Select
+    Selection.ClearContents
+    Range("B2").Select
+    Sheets("GL Bal OneStream - orig").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Note - OneStream account names align with Co. 7 chart of accounts; to confirm, in Co ""&Template!R[2]C[5]&"" Account # ""&Template!R[3]C[5]&"" is ""&Template!R[4]C[5]"
+    Range("B19").Select
+    ActiveSheet.Paste
+    Range("O20").Select
+    ActiveWindow.SmallScroll Down:=-15
+    ActiveWindow.Close
+    Application.WindowState = xlNormal
+    Workbooks.Open filename:= _
+        "P:\Prince Minerals Accounting Dept\Balance Sheet Recons\2018\02 February 2018\Co 56 - BE01 PMB\BE01 15000000 -  Investment Grants 0218.xlsx"
+    ActiveWindow.SmallScroll Down:=-15
+    Range("H22").Select
+    ActiveWindow.SmallScroll Down:=12
+    Sheets("GL Balance").Select
+    ActiveWindow.SmallScroll Down:=-21
+    Range("C36").Select
+    Sheets("Template ").Select
+    Range("N25").Select
+    ActiveWindow.SmallScroll Down:=-27
+   Application.Run "PERSONAL.XLSB!KSM_Balance_sheet_set_up_Co56"
+    Range("O19").Select
+End Sub
+
+Sub Flat_File_Mk_II_Rename()
+'
+' Flat File Mk II Rename
+'
+    Sheets("Flat File CBS").Select
+    Sheets("Flat File CBS").Name = "Flat File MK II"
+
+End Sub
+
+Sub Flat_File_Update()
+'
+' Flat_File_Update Macro
+'
+
+'
+    Sheets("Flat File").Select
+    Sheets("Flat File").Name = "Flat File MK II"
+    Range("J28").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "CSV File"
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[1]"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[1]"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[1]"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[1]"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[-3]"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[-3]"
+    Selection.NumberFormat = "0.00"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[-3]"
+    Selection.NumberFormat = "0.00"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R[13]C[-3]"
+    Range("P1").Select
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R6C3"
+    Range("P1").Select
+    Selection.NumberFormat = "dd/mm/yyyy;@"
+    Range("A1:P1").Select
+    Selection.AutoFill Destination:=Range("A1:P30"), Type:=xlFillDefault
+    Range("A1:P30").Select
+
+End Sub
+Sub aaaaaaaaaa()
+'
+' aaaaaaaaaa Macro
+'
+
+'
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R6C3"
+    Range("P2").Select
+End Sub
+Sub aaamacro()
+'
+' aaamacro Macro
+'
+
+'
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "=+'JE Template'!R6C3"
+    Range("P2").Select
+End Sub
+Sub saving_commisions()
+'
+' saving_commisions Macro
+'
+
+'
+    Dim strName As String
+    
+    strName = "P:\Prince Minerals Accounting Dept\Commissions\PMB\PDF's created from Excel Commissions\" & Range("a3") & ".pdf"
+    
+        Application.ScreenUpdating = False
+
+ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, filename:= _
+        strName, Quality:=xlQualityStandard, _
+        IncludeDocProperties:=True, IgnorePrintAreas:=False, OpenAfterPublish:= _
+        False
+
+    Application.ScreenUpdating = True
+    
+    End Sub
+
+
+Sub bsupdateIT042()
+'
+' bsupdateIT042 Macro
+'
+
+'
+    Application.ScreenUpdating = False
+    
+
+    Sheets("Template").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "GL Bal OneStream"
+    Range("j1").Select
+    ActiveCell.FormulaR1C1 = "T#2018M12, T#2018M11, T#2018M10, T#2018M9, T#2018M8, T#2018M7, T#2018M6, T#2018M5, T#2018M4, T#2018M3, T#2018M2, T#2018M1, T#2017M12, T#2017M11, T#2017M10, T#2017M9, T#2017M8, T#2017M7, T#2017M6, T#2017M5, T#2017M4, T#2017M3, T#2017M2, T#2017M1"
+
+    Range("J2").Select
+    ActiveCell.FormulaR1C1 = "PMIT"
+    
+    Range("K2").Select
+    ActiveCell.FormulaR1C1 = "EUR"
+    
+    Range("L2").Select
+    ActiveCell.FormulaR1C1 = "A#Root.List(BalanceSheet)"
+    
+    Range("M2").Select
+    ActiveCell.FormulaR1C1 = "=""U4#Root.List(""&Template!R[3]C[-6]&"")"""
+    
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "Co 57 - IT04 Prince Minerals Italy"
+    
+    Range("A2").Select
+    Columns("A:A").EntireColumn.AutoFit
+    
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Co ""&Template!R[3]C[5]&"" - ""&Template!R[4]C[5]&"" - ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - CBS"""
+
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Note - OneStream account names align with Co. 7 chart of accounts; to confirm, in Co 52 Account # ""&Template!R[3]C[5]&"" is ""&Template!R[4]C[5]"
+    Rows("3:3").Select
+    Selection.Insert Shift:=xlDown
+    
+    Range("C4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("D4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("E4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("F4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("H4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("I4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("J4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("K4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("L4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("m4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("n4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("o4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("p4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("q4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("r4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("s4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("t4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("u4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("v4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("w4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("x4").Select
+      ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("y4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("Z4").Select
+    ActiveCell.FormulaR1C1 = "1/31/2017"
+    Rows("4:4").Select
+    Selection.NumberFormat = "mmm-yy"
+    
+ 
+    Columns("N:N").ColumnWidth = 7.57
+    Columns("M:M").ColumnWidth = 7.57
+        
+    Sheets("Template").Select
+  
+      Sheets("Template").Select
+    Range("D29").Select
+    ActiveCell.FormulaR1C1 = _
+        "=HLOOKUP(R[-7]C,'GL Bal OneStream'!R[-25]:R[-23],3,0)"
+    Range("D29").Select
+   Selection.AutoFill Destination:=Range("D29:H29"), Type:=xlFillDefault
+    Range("D22").Select
+    ActiveCell.FormulaR1C1 = "=R[-15]C[3]"
+    Range("E22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],-1)"
+    Range("F22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-15]C[1],MOD(-MONTH(R[-15]C[1]),3)-3)"
+    Range("H22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-4],-12)"
+    Range("G22").Select
+    ActiveCell.FormulaR1C1 = "=DATE(YEAR(RC[1]),12,31)"
+  
+  
+  
+  
+      Range("G7:I8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G7:G8").Select
+        With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    
+       Range("G12:H12").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = True
+          End With
+        
+               Range("G14:H14").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = True
+          End With
+  
+  
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "57 - IT04"
+    Range("G14:H14").Select
+    Selection.ClearContents
+    Range("I14").Select
+    Selection.ClearContents
+    Range("G12:H12").Select
+    ActiveCell.FormulaR1C1 = "Chris Sharples"
+    Range("J12").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Range("J12").Select
+    Selection.Copy
+    Range("I12").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("J12").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("G7:I7").Select
+    ActiveCell.FormulaR1C1 = "8/31/2018"
+    Range("G8:I8").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=YEAR(R[-1]C)"
+    Range("G7").Select
+    Selection.NumberFormat = "mmm-yy"
+
+    ActiveWorkbook.RefreshAll
+
+
+Application.ScreenUpdating = True
+
+    End Sub
+    
+    Sub aaaaaaatemplate()
+'
+' absupdate Macro
+'
+
+
+
+    Application.ScreenUpdating = False
+    
+    
+    
+    Sheets("GL Bal OneStream").Select
+    
+    Rows("3:3").Select
+    Selection.Insert Shift:=xlDown
+    
+    Range("7:15").Clear
+    
+    Sheets("Template").Select
+    
+    Range("D29").Select
+    ActiveCell.FormulaR1C1 = _
+        "=HLOOKUP(R[-7]C,'GL Bal OneStream'!R[-25]:R[-23],3,0)"
+    Range("D29").Select
+    Selection.AutoFill Destination:=Range("D29:H29"), Type:=xlFillDefault
+    Range("D22").Select
+    ActiveCell.FormulaR1C1 = "=R[-15]C[3]"
+    Range("E22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],-1)"
+    Range("F22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-15]C[1],MOD(-MONTH(R[-15]C[1]),3)-3)"
+    Range("H22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-4],-12)"
+    Range("G22").Select
+    ActiveCell.FormulaR1C1 = "=DATE(YEAR(RC[1]),12,31)"
+    
+    
+    
+    
+    Sheets("GL Bal OneStream").Select
+    Range("k1").Select
+    ActiveCell.FormulaR1C1 = "T#2018M12, T#2018M11, T#2018M10, T#2018M9, T#2018M8, T#2018M7, T#2018M6, T#2018M5, T#2018M4, T#2018M3, T#2018M2, T#2018M1, T#2017M12, T#2017M11, T#2017M10, T#2017M9, T#2017M8, T#2017M7, T#2017M6, T#2017M5, T#2017M4, T#2017M3, T#2017M2, T#2017M1"
+
+    Range("C4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("D4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("E4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("F4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("H4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("I4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("J4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("K4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("L4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("m4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("n4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("o4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("p4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("q4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("r4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("s4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("t4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("u4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("v4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("w4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("x4").Select
+      ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("y4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("Z4").Select
+    ActiveCell.FormulaR1C1 = "1/31/2017"
+    Rows("4:4").Select
+    Selection.NumberFormat = "mmm-yy"
+    
+    Columns("N:N").ColumnWidth = 7.57
+    Columns("M:M").ColumnWidth = 7.57
+    Columns("B:B").ColumnWidth = 27.57
+    
+    ActiveWorkbook.RefreshAll
+    
+    
+    
+    Application.ScreenUpdating = True
+
+   
+End Sub
+
+Sub bsupdateBE012()
+'
+' bsupdateBE012 Macro
+'
+
+'
+    Application.ScreenUpdating = False
+    
+
+    Sheets("Template").Select
+    Sheets.Add After:=ActiveSheet
+    ActiveSheet.Name = "GL Bal OneStream"
+    Range("j1").Select
+    ActiveCell.FormulaR1C1 = "T#2018M12, T#2018M11, T#2018M10, T#2018M9, T#2018M8, T#2018M7, T#2018M6, T#2018M5, T#2018M4, T#2018M3, T#2018M2, T#2018M1, T#2017M12, T#2017M11, T#2017M10, T#2017M9, T#2017M8, T#2017M7, T#2017M6, T#2017M5, T#2017M4, T#2017M3, T#2017M2, T#2017M1"
+
+    Range("J2").Select
+    ActiveCell.FormulaR1C1 = "PMB"
+    
+    Range("K2").Select
+    ActiveCell.FormulaR1C1 = "EUR"
+    
+    Range("L2").Select
+    ActiveCell.FormulaR1C1 = "A#Root.List(BalanceSheet)"
+    
+    Range("M2").Select
+    ActiveCell.FormulaR1C1 = "=""U4#Root.List(""&Template!R[3]C[-6]&"")"""
+    
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "Co 56 - BE01 Prince Minerals Belgium"
+    
+    Range("A2").Select
+    Columns("A:A").EntireColumn.AutoFit
+    
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Co ""&Template!R[3]C[5]&"" - ""&Template!R[4]C[5]&"" - ""&Template!R[5]C[5]&"" - ""&TEXT(Template!R[6]C[5],""MMM-YY"")&"" - CBS"""
+
+    Range("B2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=""Note - OneStream account names align with Co. 7 chart of accounts; to confirm, in Co 52 Account # ""&Template!R[3]C[5]&"" is ""&Template!R[4]C[5]"
+    Rows("3:3").Select
+    Selection.Insert Shift:=xlDown
+    
+    Range("C4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("D4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("E4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("F4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("H4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("I4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("J4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("K4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("L4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("m4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("n4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("o4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("p4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("q4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("r4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("s4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("t4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("u4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("v4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("w4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("x4").Select
+      ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+        Range("y4").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[1],1)"
+    Range("Z4").Select
+    ActiveCell.FormulaR1C1 = "1/31/2017"
+    Rows("4:4").Select
+    Selection.NumberFormat = "mmm-yy"
+    
+ 
+    Columns("N:N").ColumnWidth = 7.57
+    Columns("M:M").ColumnWidth = 7.57
+        
+    Sheets("Template").Select
+  
+      Sheets("Template").Select
+    Range("D29").Select
+    ActiveCell.FormulaR1C1 = _
+        "=HLOOKUP(R[-7]C,'GL Bal OneStream'!R[-25]:R[-23],3,0)"
+    Range("D29").Select
+    Selection.AutoFill Destination:=Range("D29:H29"), Type:=xlFillDefault
+    Range("D22").Select
+    ActiveCell.FormulaR1C1 = "=R[-15]C[3]"
+    Range("E22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-1],-1)"
+    Range("F22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(R[-15]C[1],MOD(-MONTH(R[-15]C[1]),3)-3)"
+    Range("H22").Select
+    ActiveCell.FormulaR1C1 = "=EOMONTH(RC[-4],-12)"
+    Range("G22").Select
+    ActiveCell.FormulaR1C1 = "=DATE(YEAR(RC[1]),12,31)"
+  
+  
+  
+  
+      Range("G7:I8").Select
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    With Selection
+        .HorizontalAlignment = xlGeneral
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    Selection.UnMerge
+    Range("G7:G8").Select
+        With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    
+       Range("G12:H12").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = True
+          End With
+        
+               Range("G14:H14").Select
+    With Selection
+        .HorizontalAlignment = xlLeft
+        .VerticalAlignment = xlBottom
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .IndentLevel = 0
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = True
+          End With
+  
+  
+    Range("G4").Select
+    ActiveCell.FormulaR1C1 = "56 - BE01"
+    Range("G14:H14").Select
+    Selection.ClearContents
+    Range("I14").Select
+    Selection.ClearContents
+    Range("G12:H12").Select
+    ActiveCell.FormulaR1C1 = "Chris Sharples"
+    Range("J12").Select
+    ActiveCell.FormulaR1C1 = "=TODAY()"
+    Range("J12").Select
+    Selection.Copy
+    Range("I12").Select
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("J12").Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("G7:I7").Select
+    ActiveCell.FormulaR1C1 = "8/31/2018"
+    Range("G8:I8").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=YEAR(R[-1]C)"
+    Range("G7").Select
+    Selection.NumberFormat = "mmm-yy"
+
+    ActiveWorkbook.RefreshAll
+
+
+Application.ScreenUpdating = True
+
+    End Sub
+
+
+
+Sub IFS_Upload_CSV_09232019()
+
+'The new CVS process in place
+
+'Save the workbook prior to making all these changes:
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+Sheets("Upload").Select
+    Range("Q1").Select
+    Selection.ClearContents
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(+'JE Template'!R[13]C[1]="""",""-"",LEFT('JE Template'!R[13]C[1],5))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""-"",""-"",IF(+'JE Template'!R[13]C[5]="""",""-"",+'JE Template'!R[13]C[5]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""-"",""-"",IF(+'JE Template'!R[13]C[6]="""",""-"",+'JE Template'!R[13]C[6]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""-"",""-"",IF(+'JE Template'!R[13]C[7]="""",""-"",+'JE Template'!R[13]C[7]))"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-5]=""-"",""-"",IF(+'JE Template'!R[13]C[9]="""",""-"",+'JE Template'!R[13]C[9]))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(A1=""-"",""-"",IF(+'JE Template'!M14="""",""-"",+'JE Template'!M14))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""-"",""-"",IF(+'JE Template'!R[13]C[6]="""",""-"",+'JE Template'!R[13]C[6]))"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""-"",""-"",IF(+'JE Template'!R10C6="""",""-"",+'JE Template'!R10C6))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""-"",""-"",IF(OR(+'JE Template'!R[13]C[-8]="""",+'JE Template'!R[13]C[-8]=0),""-"",+'JE Template'!R[13]C[-8]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""-"",""-"",IF(OR(+'JE Template'!R[13]C[-8]="""",+'JE Template'!R[13]C[-8]=0),""-"",+'JE Template'!R[13]C[-8]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""-"",""-"",IF(OR(+'JE Template'!R[13]C[-9]="""",+'JE Template'!R[13]C[-9]=0),""-"",+'JE Template'!R[13]C[-9]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""-"",""-"",'JE Template'!R6C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:2500"), Type:=xlFillDefault
+    
+    Sheets("JE Template").Select
+       Range("C10 ").Select
+           Selection.Copy
+    Sheets("Upload").Select
+       Range("Q1").Select
+               Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+
+Sheets("JE Template").Select
+       Range("C4").Select
+
+
+'Copy the Flat File MK II, this will leave the formula filled Flat File MK II in place for re-use. Copy and paste as values so we can manipulate.
+'This also now adds a file name into the Flat File MK II that we can use to make a local name
+
+
+Sheets("Upload").Copy After:=Sheets(Sheets.Count)
+    Sheets("Upload (2)").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+        
+'Now get rid of any undesirables, characters we dont like, etc
+        
+Cells.Replace What:="-", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:="#", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    Cells.Replace What:=",", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+Application.CutCopyMode = False
+
+'Ensure any co numbers remain 3 digit
+
+Columns("G:G").Select
+    Selection.NumberFormat = "@"
+    
+'Now delete any lines that have a blank in column A
+    
+On Error Resume Next
+
+Range("a1:a5000").Select
+
+Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+'Now save as CSV file in upload directory
+
+Dim path As String
+Dim strName As String
+
+    Sheets("Upload (2)").Move
+    path = "C:\Users\" & Environ("username") & "\IFS Uploads"
+    ChDir path
+        
+    strName = path & "\" & Range("q1") & ".csv"
+    
+    ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV
+    
+    Range("q:q").Clear
+    
+    ActiveWorkbook.Close SaveChanges:=True
+    
+    Sheets("Upload").Select
+    
+    Rows("501:2500").Select
+    Selection.ClearContents
+    
+    Sheets("JE Template").Select
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+End Sub
+
+Sub IFS_Upload_Tab_Update_09232019()
+'
+' Flat_File_Formula Macro
+'
+
+'This macro will update the formulas in the Upload, filling them down that way if there are any lines deleted they will not impact the integrity of the upload.
+
+Application.ScreenUpdating = False
+
+Sheets("Upload").Select
+    Range("Q1").Select
+    Selection.ClearContents
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(+'JE Template'!R[13]C[1]="""",""-"",LEFT('JE Template'!R[13]C[1],5))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-1]=""-"",""-"",IF(+'JE Template'!R[13]C[5]="""",""-"",+'JE Template'!R[13]C[5]))"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-2]=""-"",""-"",IF(+'JE Template'!R[13]C[6]="""",""-"",+'JE Template'!R[13]C[6]))"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-3]=""-"",""-"",IF(+'JE Template'!R[13]C[7]="""",""-"",+'JE Template'!R[13]C[7]))"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-5]=""-"",""-"",IF(+'JE Template'!R[13]C[9]="""",""-"",+'JE Template'!R[13]C[9]))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(A1=""-"",""-"",IF(+'JE Template'!M14="""",""-"",+'JE Template'!M14))"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-6]=""-"",""-"",IF(+'JE Template'!R[13]C[6]="""",""-"",+'JE Template'!R[13]C[6]))"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-10]=""-"",""-"",IF(+'JE Template'!R10C6="""",""-"",+'JE Template'!R10C6))"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-11]=""-"",""-"",IF(OR(+'JE Template'!R[13]C[-8]="""",+'JE Template'!R[13]C[-8]=0),""-"",+'JE Template'!R[13]C[-8]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""-"",""-"",IF(OR(+'JE Template'!R[13]C[-8]="""",+'JE Template'!R[13]C[-8]=0),""-"",+'JE Template'!R[13]C[-8]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-14]=""-"",""-"",IF(OR(+'JE Template'!R[13]C[-9]="""",+'JE Template'!R[13]C[-9]=0),""-"",+'JE Template'!R[13]C[-9]))"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-15]=""-"",""-"",'JE Template'!R6C3)"
+    Rows("1:1").Select
+    Selection.AutoFill Destination:=Rows("1:500"), Type:=xlFillDefault
+    Range("A1").Select
+    
+    Application.ScreenUpdating = True
+    
+End Sub
+
+
+Sub SAP_Cols()
+'
+' SAP_Cols Macro
+'
+
+Application.ScreenUpdating = False
+
+    Columns("B:B").ColumnWidth = 1.86
+    Columns("E:E").ColumnWidth = 3.29
+    Columns("H:H").ColumnWidth = 4.43
+    Columns("J:J").ColumnWidth = 4.29
+    Columns("I:I").ColumnWidth = 12.57
+    Columns("G:G").ColumnWidth = 10.57
+    Columns("I:I").ColumnWidth = 10.14
+    Columns("K:K").ColumnWidth = 10.29
+    Columns("L:O").Select
+    Selection.ColumnWidth = 1
+    Columns("F:F").ColumnWidth = 7.86
+    Columns("F:F").ColumnWidth = 10.57
+    Columns("D:D").ColumnWidth = 11.71
+    Range("A1").Select
+
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub Show_Status_Bar()
+Application.DisplayStatusBar = True
+End Sub
+
+
