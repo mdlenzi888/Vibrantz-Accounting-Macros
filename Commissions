@@ -1,0 +1,64 @@
+Sub Salesman()
+'
+' Salesman Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+S
+'
+
+    Sheets(Array("Check Request", "Statement")).Copy
+    Sheets("Statement").Activate
+    Range("M8").Select
+    ActiveSheet.Range("$B$8:$S$123").AutoFilter Field:=12
+    ActiveSheet.Range("$B$8:$S$123").AutoFilter Field:=12, Operator:= _
+        xlFilterNoFill
+    Rows("9:9").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Delete Shift:=xlUp
+    Range("L13").Select
+    ActiveSheet.Range("$B$8:$S$12").AutoFilter Field:=12
+    Range("H18").Select
+    
+    Dim period
+    period = Format(Range("C2"), "mmm yyyy")
+    
+    Sheets("Check Request").Select
+    
+    Dim path As String
+    Dim strName As String
+    
+    path = "S:\Prince Minerals Accounting Dept\Commissions\PMI\2023 Commissions\"
+    ChDir path
+    strName = path & "\Commissions - Steel Representatives - (" & Range("C5") & ") - " & period & ".xlsx"
+    
+    ActiveWorkbook.SaveAs filename:=strName
+    
+    Range("F11").Select
+    
+End Sub
+
+Sub All_Salesmen()
+'
+' Runs Salesman() macro for all vendors in Summary tab
+'
+
+    Dim main_file
+    main_file = "Commissions - Steel Reps -- " & Format(Sheets("Statement").Range("C2"), "mmm yyyy") & ".xlsx"
+
+    Dim zero_vendors As String
+    For Each vendor In Sheets("Summary").Range("B12:B26").Cells
+        
+        Workbooks(main_file).Sheets("Check Request").Activate
+        Range("C4").Value = vendor
+        
+        If Range("C7").Value <> 0 Then
+            'Call Salesman
+            'ActiveWorkbook.Close
+        Else
+            zero_vendors = zero_vendors & vendor & " - " & Range("C5").Value & vbNewLine
+        End If
+        
+        Next
+    
+    MsgBox "All Salesmen files have been created, except for the following $0 vendors:" & vbNewLine & vbNewLine & zero_vendors
+
+End Sub
