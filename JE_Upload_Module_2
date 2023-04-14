@@ -1,0 +1,979 @@
+' -------------------------------------------------------------------------------------------------------------------
+' Macro :   CHARGERROSS (Ross Macro Excel CHARGER ECRITURE)
+' Auteur :  Daniel Delsaux
+' Méthode : Structuré
+' Version : Voir début des instructions
+' RZZ20171004 migration Prince
+' RZZ20180806 Migration server vers HDC Houston Data Center HDCVMDB075
+
+' -------------------------------------------------------------------------------------------------------------------
+
+
+' -------------------------------------------------------------------------------------------------------------------
+' DECLARATIONS SPECIFIQUE MACROS EXTERIEURES
+' -------------------------------------------------------------------------------------------------------------------
+
+Private Declare PtrSafe Function GetLocaleInfo Lib _
+"kernel32" Alias "GetLocaleInfoA" (ByVal Locale As Long, _
+ByVal LCType As Long, ByVal lpLCData As String, _
+ByVal cchData As Long) As Long
+
+Private Declare PtrSafe Function GetUserDefaultLCID Lib "kernel32" () As Long
+
+Private Const LOCALE_IDATE = &H21          'format de date courte : 0 = M-J-A, 1 = J-M-A, 2 = A-M-J
+Private Const LOCALE_ILDATE = &H22         'format de date longue
+Private Const LOCALE_SCOUNTRY = &H6        'pays en toutes lettres
+Private Const LOCALE_SNATIVELANGNAME = &H4 'langue, en toutes lettres
+Private Const LOCALE_STHOUSAND = &HF       'séparateur des milliers
+Private Const LOCALE_SDECIMAL = &HE        'séparateur décimal
+
+' -------------------------------------------------------------------------------------------------------------------
+' DECLARATIONS GENERALES DU MODULE
+' -------------------------------------------------------------------------------------------------------------------
+
+'   Forcer la déclaration explicite des variables
+    Option Explicit
+
+'   Déclarations Spécifiques pour Oracle
+'    Public Const pcsConnTest As String = "ODBC;DRIVER={Microsoft ODBC for Oracle};UID=system;PWD=manager_1;SERVER=test"
+'    Public Const pcsConnProd As String = "ODBC;DRIVER={Microsoft ODBC for Oracle};UID=system;PWD=manager_1;SERVER=ecsa"
+    
+' RZZ20180806 Public Const pcsConnTest As String = "Provider=SQLOLEDB.1;Password=32frogs!;Persist Security Info=True;User ID=sa;Initial Catalog=fin70_test;Data Source=10.201.19.26;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=QTS-ECIERPP-01V;Use Encryption for Data=False;Tag with column collation when possible=False"
+' RZZ20180806 Public Const pcsConnProd As String = "Provider=SQLOLEDB.1;Password=32frogs!;Persist Security Info=True;User ID=sa;Initial Catalog=fin70_prod;Data Source=10.201.19.75;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=QTS-ECIERPP-01V;Use Encryption for Data=False;Tag with column collation when possible=False"
+    Public Const pcsConnTest As String = "Provider=SQLOLEDB.1;Password=32frogs!;Persist Security Info=True;User ID=sa;Initial Catalog=fin70_test;Data Source=10.201.19.26;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=QTS-ECIERPP-01V;Use Encryption for Data=False;Tag with column collation when possible=False"
+    Public Const pcsConnProd As String = "Provider=SQLOLEDB.1;Password=32frogs!;Persist Security Info=True;User ID=sa;Initial Catalog=fin70_prod;Data Source=HDCVMDB075;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=QTS-ECIERPP-01V;Use Encryption for Data=False;Tag with column collation when possible=False"
+    
+    Public cn As ADODB.Connection, Rst As Recordset
+    Public sSql As String
+    
+'   Déclarations des Variables Générales
+    Dim Version, I, J, K, L, IndLigne
+    Dim RéponseMessage, IntituléMessage, TitreMessage, TitreMacro
+    Dim NomStatsProposé, NomStatsProposéComplet, NomStats, NomStatsExcel, NomStatsComplet
+    Dim NomRépertoireSource, NomRépertoireHistorique, NomRépertoireDescription
+    Dim NomSource, NomSourceComplet, NomSourceExcel
+    Dim NomHistorique, NomHistoriqueComplet, NomHistoriqueExcel
+    Dim NomDescription, NomDescriptionComplet, NomDescriptionExcel
+    Dim FichierSourceExiste, FichierHistoriqueExiste, FichierDescriptionExiste
+    Dim DateDébutProposé, DateDébutTraité, DateFinProposé, DateFinTraité
+    Dim AnnéeDébut, AnnéeFin, MoisDébut, MoisFin, JourWork
+    Dim JourDébut As Date, JourFin As Date
+    Dim AnnéeQuatreDébut, AnnéeQuatreFin, MoisMensuels, InDate, NMois, NAnnéQuatre
+    Dim barreEtatEnregistrée
+    Dim ClientTraité, ProduitTraité
+    Dim ZCodes(100), ZValeurs(100)
+    Dim AddColStatsMois, ColStatsTypVal, ColStatsIdent, MaxLigStats, ColStatsMois
+    Dim IndCol, NbrCol, IndLig, NbrLig
+    Dim UtilisateurCat, UtilisateurNom
+    Dim NomClient
+    Dim ArticleRupture, ArticleCourant, ArticleLibellé, LotRupture, LotCourant, DespatchCourant, DespatchRupture
+    Dim SqlDébutDate As String, SqlFinDate As String, SqlDateWork As Date
+    Dim MoisEnLettres As String
+    Dim ZNumProduit, ZNomProduit, ZMagasin, ZNumDespatch, ZDateDespatch, ZQuantité, ZNumClient, ZNopmClient
+    Dim ZNumLot, ZNumConfirm, ZNumConfirmLigne
+    Dim IndPremierLot, NbrCodes, IndCodes
+    Dim OrdreDate, HeureDémarrage
+    Dim RupOldGRN, RupOldDespatch
+    Dim NbrRubrique, NbrDespatch, NbrGRN, NbrPesage
+    Dim CtrValueDeb, CtrValueCre, CtrBaseDeb, CtrBaseCre
+    Dim IndBoucleFolder
+    Dim SourceRange, NbrLigneSource, NbrColonneSource, TitreColonneSource
+    Dim HistoriqueRange, NbrLigneHistorique, NbrColonneHistorique, TitreColonneHistorique
+    Dim sNumeric
+    Dim FlagTestProd, NbrFeuilles, IndFeuilles, NbrFeuillesHeader, NbrFeuillesLines, NbrFeuillesEcriture
+  
+'   Tables
+    Dim TDescHeaderName(50)
+    Dim TDescHeaderType(50)
+    Dim NbrTDescHeader, IndTDescHeader
+    Dim TDescLineName(50)
+    Dim TDescLineType(50)
+    Dim NbrTDescLine, IndTDescLine
+    
+'   Autres zones
+    Dim NbrLigChargées
+    Dim objSession, ObjDataBase, p
+    Dim ModeExec, ModeFullAuto
+    Dim NCodeProduit, NFicRep, ZoneChamp
+    
+' -------------------------------------------------------------------------------------------------------------------
+' FONCTIONS EXTERIEURES
+' -------------------------------------------------------------------------------------------------------------------
+
+Private Function ParametreRegional(parametre As Long) As String
+
+Dim lngResultat As Long
+Dim buffer As String
+Dim pos As Integer
+Dim Locale As Long
+
+'récupère l'identifiant de l'information locale de type utilisateur
+Locale = GetUserDefaultLCID()
+
+'renvoie le nombre de caractères nécessaire pour recevoir la valeur du paramètre demandé
+lngResultat = GetLocaleInfo(Locale, parametre, buffer, 0)
+
+buffer = String(lngResultat, 0)
+GetLocaleInfo Locale, parametre, buffer, lngResultat
+pos = InStr(buffer, Chr(0))
+If pos > 0 Then ParametreRegional = Left(buffer, pos - 1)
+End Function
+Sub CHARGERROSS()
+
+'   Appel des Procédures
+    NCOM_NOM_UTILISATEUR             ' NIVEAU COMMUN      Appel Nom Utilisateur - Call Username
+    NCOM_INIT_GENERAL                ' NIVEAU COMMUN      Initialisation des Variables Communes - Initialization of Common Variables
+    NCOM_INIT_TABLES                 ' NIVEAU COMMUN      Initialisation des Tables - Initialization of Tables
+    NCOM_CONTROLER_EXCEL             ' NIVEAU COMMUN      Contrôler feuilles Excel - Control Excel Sheets
+    NCOM_OUVRIR_ROSS                 ' NIVEAU COMMUN      Ouvrir base de donnée Test ou Prod - Open Database Test or Prod
+    NCOM_CHARGER_ROSS                ' NIVEAU COMMUN      Charger Ecriture dans Ross - Load Writing in Ross
+    NCOM_FIN_MODULE                  ' NIVEAU COMMUN      Fin du Module - End of Module
+    
+    
+
+   
+End Sub
+
+Sub NCOM_NOM_UTILISATEUR()
+'   Assignation Nom Utilisateur
+    UtilisateurNom = Application.UserName
+    
+'   Assignation Catégorie Utilisateur
+    UtilisateurCat = "USR"
+    If UtilisateurNom = "Daniel Delsaux" Then
+       UtilisateurCat = "DEV"
+    End If
+    If UtilisateurNom = "RossWS1" Then
+       UtilisateurCat = "DEV"
+    End If
+End Sub
+Sub NCOM_INIT_GENERAL()
+
+' -------------------------------------------------------------------------------------------------------------------
+' INITIALISATATION GENERALE
+' -------------------------------------------------------------------------------------------------------------------
+
+' ------------------------------------------------------------
+  Version = "2019" ' du 29 mars 2010 (avec Reversal)
+' ------------------------------------------------------------
+
+'   Assignation Base de Chargement - Ledger to be loaded to - PROD or TEST
+    FlagTestProd = "PROD"
+    
+'   L'instruction suivante rends toute l'application invisible (volontairement off pour le démarrage) - Screen Updates
+    Application.Visible = True
+
+'   Assignation des Variables Générales - Assignment of General Variables
+    TitreMacro = "Jnl Upload in Ross"
+    TitreMessage = "Macro " & TitreMacro & " (CBS-V " & Version & ")"
+   
+'   Assignation de l'ordre des dates 0 = MMJJAA ou 1 = JJMMAA - This assigns date formats, but by the looks of it it will put in the local date format - so for here that will be US!!!! - Need to test and fix!
+    OrdreDate = Application.International(xlDateOrder)
+    
+'   Définir . comme séparateur décimales - Assigns the decimals, this is using the anglosphere version which is a . as opposed to the euro ,
+    Application.DecimalSeparator = "."
+
+'   Assignation Barre Etat - This allows pop up boxes to show
+    barreEtatEnregistrée = Application.DisplayStatusBar
+    Application.DisplayStatusBar = True
+    
+'   Remettre Flag Vide - I believe this makes cell C2 blank after posting
+    Sheets("ECRITURE").Select
+    Cells(2, 3) = " "
+
+   
+End Sub
+Sub NCOM_CONFIRMATION()
+
+'   Confirmation
+    IntituléMessage = "The Journal will be uploaded in " & FlagTestProd _
+                      & Chr(10) & Chr(10) & "Confirm or Cancel the upload..."
+    RéponseMessage = MsgBox(IntituléMessage, 65537, TitreMessage)
+    If RéponseMessage = 2 Then Call NCOM_FIN_MODULE_ANNULE
+End Sub
+Sub NCOM_CONTROLER_EXCEL()
+
+'   Nombre de feuilles
+    NbrFeuilles = Sheets.Count
+    NbrFeuillesHeader = 0
+    NbrFeuillesLines = 0
+    NbrFeuillesEcriture = 0
+
+'   Chercher feuilles
+    For IndFeuilles = 1 To NbrFeuilles
+       If Sheets(IndFeuilles).Name = "GL_BATCH_TRANSACTIONS" Then
+          NbrFeuillesHeader = NbrFeuillesHeader + 1
+       End If
+       If Sheets(IndFeuilles).Name = "GL_BATCH_TRAN_LINES" Then
+          NbrFeuillesLines = NbrFeuillesLines + 1
+       End If
+       If Sheets(IndFeuilles).Name = "ECRITURE" Then
+          NbrFeuillesEcriture = NbrFeuillesEcriture + 1
+       End If
+    Next IndFeuilles
+
+'   Différent de 3 feuilles
+    If NbrFeuilles <> 3 Then
+       IntituléMessage = "ERREUR : Plus de trois feuilles dans le fichier..." _
+             & Chr(10) & Chr(10) & "Vérifiez le contenu du fichier et relancez le chargement..."
+       RéponseMessage = MsgBox(IntituléMessage, 65552, TitreMessage)
+       Call NCOM_FIN_MODULE_ANNULE
+    End If
+
+'   Autre qu'une feuille Header - ERROR: You need a single sheet named GL_BATCH_TRANSACTIONS in the file ..
+    If NbrFeuillesHeader <> 1 Then
+       IntituléMessage = "ERREUR : Il faut une seule feuille nommée GL_BATCH_TRANSACTIONS dans le fichier..." _
+             & Chr(10) & Chr(10) & "Vérifiez le contenu du fichier et relancez le chargement..."
+       RéponseMessage = MsgBox(IntituléMessage, 65552, TitreMessage)
+       Call NCOM_FIN_MODULE_ANNULE
+    End If
+
+'   Autre qu'une feuille Lines - ERROR: You need a single sheet named GL_BATCH_TRAN_LINES in the file ...
+    If NbrFeuillesLines <> 1 Then
+       IntituléMessage = "ERREUR : Il faut une seule feuille nommée GL_BATCH_TRAN_LINES dans le fichier..." _
+             & Chr(10) & Chr(10) & "Vérifiez le contenu du fichier et relancez le chargement..."
+       RéponseMessage = MsgBox(IntituléMessage, 65552, TitreMessage)
+       Call NCOM_FIN_MODULE_ANNULE
+    End If
+
+'   Autre qu'une feuille Ecriture - ERROR: You need a single sheet named WRITE in the file
+    If NbrFeuillesEcriture <> 1 Then
+       IntituléMessage = "ERREUR : Il faut une seule feuille nommée ECRITURE dans le fichier..." _
+             & Chr(10) & Chr(10) & "Vérifiez le contenu du fichier et relancez le chargement..."
+       RéponseMessage = MsgBox(IntituléMessage, 65552, TitreMessage)
+       Call NCOM_FIN_MODULE_ANNULE
+    End If
+End Sub
+Sub NCOM_OUVRIR_ROSS()
+
+'   Appel Ouverture Oracle TEST ou PROD
+'   Ensuite, les commandes SQL sont identiques entre TEST et PROD
+    If FlagTestProd = "TEST" Then
+       Call NCOM_OUVERTURE_ORACLE_TEST
+    Else
+       Call NCOM_OUVERTURE_ORACLE_PROD
+    End If
+
+End Sub
+Sub NCOM_CHARGER_ROSS()
+
+'   Chargement du Header
+    Sheets("GL_BATCH_TRANSACTIONS").Select
+    NbrLig = 1
+    NbrCol = NbrTDescHeader
+    Range("A1").Select
+    For IndLig = 1 To NbrLig
+       ' Début Sql
+       sSql = " Insert Into GL_BATCH_IMPORT_HEADERS ("
+       ' Titres de Champs
+       For IndTDescHeader = 1 To NbrTDescHeader
+          sSql = sSql & TDescHeaderName(IndTDescHeader) & ", "
+       Next IndTDescHeader
+       ' Milieu Sql (avec effacement dernière ,)
+       sSql = Left(sSql, (Len(sSql) - 2))
+       sSql = sSql & ") Values ("
+       ' Valeurs
+       For IndCol = 1 To NbrCol
+          If TDescHeaderType(IndCol) = "A" Then
+             sSql = sSql & "'" & Trim(Cells(IndLig, IndCol)) & "', "
+          Else
+             If TDescHeaderType(IndCol) = "N" Then
+                sNumeric = Trim(Cells(IndLig, IndCol))
+                sNumeric = Replace(sNumeric, ",", ".")
+                sSql = sSql & sNumeric & ", "
+              Else
+                 If TDescHeaderType(IndCol) = "D" Then
+                 sSql = sSql & " '" & Year(Cells(IndLig, IndCol)) & _
+                               "-" & Month(Cells(IndLig, IndCol)) & _
+                               "-" & Day(Cells(IndLig, IndCol)) & "', "
+                Else
+                   If TDescHeaderType(IndCol) = "H" Then
+                      sSql = sSql & " '" & Year(Cells(IndLig, IndCol)) & _
+                                    "-" & Month(Cells(IndLig, IndCol)) & _
+                                    "-" & Day(Cells(IndLig, IndCol)) & _
+                                    " " & Hour(Cells(IndLig, IndCol)) & _
+                                    ":" & Minute(Cells(IndLig, IndCol)) & ":00', "
+                   Else
+                      If TDescHeaderType(IndCol) = "V" Then
+                         sSql = sSql & "' ', "
+                      Else
+                         sSql = sSql & Trim(Cells(IndLig, IndCol)) & ", "
+                      End If
+                   End If
+                End If
+             End If
+          End If
+       Next IndCol
+       ' Fin Sql (avec effacement dernière ,)
+       sSql = Left(sSql, (Len(sSql) - 2))
+       sSql = sSql & ") "
+       
+       'MsgBox (IndLig & " " & sSql)
+       
+       Set Rst = cn.Execute(sSql)
+    Next IndLig
+    
+'   Positionner A1 en fin de Traitement
+    Range("A1").Select
+    
+'   Chargement des Lignes
+    NbrLigChargées = 0
+    Sheets("GL_BATCH_TRAN_LINES").Select
+    NbrLig = 2000
+    NbrCol = NbrTDescLine
+    Range("A1").Select
+    For IndLig = 1 To NbrLig
+       If Cells(IndLig, 5) > 0 Then
+          NbrLigChargées = NbrLigChargées + 1
+          ' Début Sql
+          sSql = " Insert Into GL_BATCH_IMPORT_LINES ("
+          ' Titres de Champs
+          For IndTDescLine = 1 To NbrTDescLine
+             sSql = sSql & TDescLineName(IndTDescLine) & ", "
+          Next IndTDescLine
+          ' Milieu Sql (avec effacement dernière ,)
+          sSql = Left(sSql, (Len(sSql) - 2))
+          sSql = sSql & ") Values ("
+          ' Valeurs
+          For IndCol = 1 To NbrCol
+          If TDescLineType(IndCol) = "A" Then
+             sSql = sSql & "'" & Trim(Cells(IndLig, IndCol)) & "', "
+          Else
+             If TDescLineType(IndCol) = "N" Then
+                sNumeric = Trim(Cells(IndLig, IndCol))
+                sNumeric = Replace(sNumeric, ",", ".")
+                sSql = sSql & sNumeric & ", "
+             Else
+             If TDescLineType(IndCol) = "D" Then
+                   sSql = sSql & "'" & Year(Cells(IndLig, IndCol)) & _
+                                 "-" & Month(Cells(IndLig, IndCol)) & _
+                                 "-" & Day(Cells(IndLig, IndCol)) & "', "
+                Else
+                   If TDescLineType(IndCol) = "H" Then
+                      sSql = sSql & " '" & Year(Cells(IndLig, IndCol)) & _
+                                    "-" & Month(Cells(IndLig, IndCol)) & _
+                                    "-" & Day(Cells(IndLig, IndCol)) & _
+                                    " " & Hour(Cells(IndLig, IndCol)) & _
+                                    ":" & Minute(Cells(IndLig, IndCol)) & ":00', "
+                   Else
+                      If TDescLineType(IndCol) = "V" Then
+                         sSql = sSql & "' ', "
+                      Else
+                         sSql = sSql & Trim(Cells(IndLig, IndCol)) & ", "
+                      End If
+                   End If
+                End If
+             End If
+          End If
+          Next IndCol
+          ' Fin Sql (avec effacement dernière ,)
+          sSql = Left(sSql, (Len(sSql) - 2))
+          sSql = sSql & ") "
+          
+          'MsgBox (IndLig & " " & sSql)
+       
+          Set Rst = cn.Execute(sSql)
+       End If
+    Next IndLig
+    
+'   Positionner A1 en fin de Traitement
+    Range("A1").Select
+End Sub
+Sub NCOM_OUVERTURE_ORACLE_TEST()
+'   Ouverture Test
+    Set cn = New ADODB.Connection
+'    cn.Provider = "MSDAORA"
+    cn.CursorLocation = adUseClient
+    cn.ConnectionString = pcsConnTest
+    Set Rst = New ADODB.Recordset
+'    cn.Open "Test", "system", "manager_1"
+    cn.Open
+End Sub
+Sub NCOM_OUVERTURE_ORACLE_PROD()
+
+'   Ouverture Prod
+    Set cn = New ADODB.Connection
+'    cn.Provider = "MSDAORA"
+    cn.CursorLocation = adUseClient
+    cn.ConnectionString = pcsConnProd
+    Set Rst = New ADODB.Recordset
+'    cn.Open "Ecsa", "system", "manager_1"
+'   cn.Open "Ecsa", "read_only", "read_only"
+    cn.Open
+End Sub
+Sub NCOM_INIT_TABLES()
+
+' -------------------------------------------------------------------------------------------------------------------
+' INITIALISATION TABLES
+' -------------------------------------------------------------------------------------------------------------------
+
+'   Table Description Header
+    NbrTDescHeader = 31
+    TDescHeaderName(1) = "SYSTEM_DATE"
+    TDescHeaderName(2) = "STATUS_FLAG"
+    TDescHeaderName(3) = "INTERCOMPANY_POSTINGS"
+    TDescHeaderName(4) = "GL_JOURNAL_CODE"
+    TDescHeaderName(5) = "SOURCE_MODULE"
+    TDescHeaderName(6) = "ACCRUAL_FLAG"
+    TDescHeaderName(7) = "COMPANY_CODE"
+    TDescHeaderName(8) = "JOURNAL_BATCH_SEQ"
+    TDescHeaderName(9) = "CURRENT_YEAR"
+    TDescHeaderName(10) = "JOURNAL_DATE"
+    TDescHeaderName(11) = "JOURNAL_PERIOD"
+    TDescHeaderName(12) = "MEMO"
+    TDescHeaderName(13) = "SYS_CURRENCY_CODE"
+    TDescHeaderName(14) = "SYS_CURRENCY_RATE"
+    TDescHeaderName(15) = "SYS_RATE_TYPE"
+    TDescHeaderName(16) = "SYS_RATE_AUTHORITY"
+    TDescHeaderName(17) = "SYS_BASE_CURRENCY_CODE"
+    TDescHeaderName(18) = "SYS_CURRENCY_RATIO_INDIC"
+    TDescHeaderName(19) = "SYS_CURRENCY_DATE"
+    TDescHeaderName(20) = "GL_EFFECTIVE_DATE"
+    TDescHeaderName(21) = "JOURNAL_TOTAL_DR_CR"
+    TDescHeaderName(22) = "TRANSACTION_TYPE"
+    TDescHeaderName(23) = "BALANCE_TO_ZERO"
+    TDescHeaderName(24) = "SYS_CURRENCY_FIXED_FLAG"
+    TDescHeaderName(25) = "MODULE_TRANSACTION_TYPE"
+    TDescHeaderName(26) = "JOURNAL_DETAIL_DESCRIPTION"
+    TDescHeaderName(27) = "USERNAME"
+    TDescHeaderName(28) = "REVERSAL_YEAR"
+    TDescHeaderName(29) = "REVERSAL_PERIOD"
+    TDescHeaderName(30) = "REVERSAL_DATE"
+    TDescHeaderName(31) = "REVERSAL_EFFECTIVE_DATE"
+    
+'   Type D = Date
+'   Type H = Date + Heure
+'   Type A = AlphaNumérique
+'   Type N = Numérique
+'   Type V = Vide et doit être chargé avec un blanc
+
+    TDescHeaderType(1) = "H"
+    TDescHeaderType(2) = "A"
+    TDescHeaderType(3) = "A"
+    TDescHeaderType(4) = "A"
+    TDescHeaderType(5) = "A"
+    TDescHeaderType(6) = "A"
+    TDescHeaderType(7) = "A"
+    TDescHeaderType(8) = "A"
+    TDescHeaderType(9) = "A"
+    TDescHeaderType(10) = "D"
+    TDescHeaderType(11) = "A"
+    TDescHeaderType(12) = "A"
+    TDescHeaderType(13) = "A"
+    TDescHeaderType(14) = "A"
+    TDescHeaderType(15) = "A"
+    TDescHeaderType(16) = "A"
+    TDescHeaderType(17) = "A"
+    TDescHeaderType(18) = "A"
+    TDescHeaderType(19) = "D"
+    TDescHeaderType(20) = "D"
+    TDescHeaderType(21) = "N"
+    TDescHeaderType(22) = "A"
+    TDescHeaderType(23) = "A"
+    TDescHeaderType(24) = "A"
+    TDescHeaderType(25) = "A"
+    TDescHeaderType(26) = "A"
+    TDescHeaderType(27) = "A"
+    TDescHeaderType(28) = "N"
+    TDescHeaderType(29) = "N"
+    TDescHeaderType(30) = "D"
+    TDescHeaderType(31) = "D"
+
+    NbrTDescLine = 37
+    TDescLineName(1) = "SYSTEM_DATE"
+    TDescLineName(2) = "STATUS_FLAG"
+    TDescLineName(3) = "COMPANY_CODE"
+    TDescLineName(4) = "JOURNAL_BATCH_SEQ"
+    TDescLineName(5) = "JOURNAL_LINE"
+    TDescLineName(6) = "ACCOUNT_IDENT"
+    TDescLineName(7) = "CURRENT_YEAR"
+    TDescLineName(8) = "JOURNAL_DESCRIPTION"
+    TDescLineName(9) = "ACCOUNT_NUMBER"
+    TDescLineName(10) = "GL_JOURNAL_VALUE_BASE"
+    TDescLineName(11) = "SYS_CURRENCY_CODE"
+    TDescLineName(12) = "SYS_BASE_CURRENCY_CODE"
+    TDescLineName(13) = "GL_JOURNAL_VALUE_DR"
+    TDescLineName(14) = "GL_JOURNAL_VALUE_CR"
+    TDescLineName(15) = "GL_JOURNAL_BASE_DR"
+    TDescLineName(16) = "GL_JOURNAL_BASE_CR"
+    TDescLineName(17) = "GL_ELEMENT_01"
+    TDescLineName(18) = "GL_ELEMENT_02"
+    TDescLineName(19) = "GL_ELEMENT_03"
+    TDescLineName(20) = "GL_ELEMENT_04"
+    TDescLineName(21) = "GL_ELEMENT_05"
+    TDescLineName(22) = "GL_ELEMENT_06"
+    TDescLineName(23) = "GL_ELEMENT_07"
+    TDescLineName(24) = "GL_ELEMENT_08"
+    TDescLineName(25) = "GL_ELEMENT_09"
+    TDescLineName(26) = "GL_ELEMENT_10"
+    TDescLineName(27) = "GL_ELEMENT_11"
+    TDescLineName(28) = "GL_ELEMENT_12"
+    TDescLineName(29) = "GL_ELEMENT_13"
+    TDescLineName(30) = "GL_ELEMENT_14"
+    TDescLineName(31) = "GL_ELEMENT_15"
+    TDescLineName(32) = "SYS_ADB_REQUIRED"
+    TDescLineName(33) = "JOURNAL_VALUE"
+    TDescLineName(34) = "GL_ANALYSIS_CODE_1"
+    TDescLineName(35) = "GL_ANALYSIS_CODE_2"
+    TDescLineName(36) = "GL_ANALYSIS_CODE_3"
+    TDescLineName(37) = "USERNAME"
+
+'   Type D = Date
+'   Type H = Date + Heure
+'   Type A = AlphaNumérique
+'   Type N = Numérique
+'   Type V = Vide et doit être chargé avec un blanc
+    
+    TDescLineType(1) = "H"
+    TDescLineType(2) = "A"
+    TDescLineType(3) = "A"
+    TDescLineType(4) = "A"
+    TDescLineType(5) = "A"
+    TDescLineType(6) = "A"
+    TDescLineType(7) = "A"
+    TDescLineType(8) = "A"
+    TDescLineType(9) = "A"
+    TDescLineType(10) = "N"
+    TDescLineType(11) = "A"
+    TDescLineType(12) = "A"
+    TDescLineType(13) = "N"
+    TDescLineType(14) = "N"
+    TDescLineType(15) = "N"
+    TDescLineType(16) = "N"
+    TDescLineType(17) = "A"
+    TDescLineType(18) = "A"
+    TDescLineType(19) = "A"
+    TDescLineType(20) = "A"
+    TDescLineType(21) = "A"
+    TDescLineType(22) = "A"
+    TDescLineType(23) = "A"
+    TDescLineType(24) = "V"
+    TDescLineType(25) = "V"
+    TDescLineType(26) = "V"
+    TDescLineType(27) = "V"
+    TDescLineType(28) = "V"
+    TDescLineType(29) = "V"
+    TDescLineType(30) = "V"
+    TDescLineType(31) = "V"
+    TDescLineType(32) = "A"
+    TDescLineType(33) = "N"
+    TDescLineType(34) = "A"
+    TDescLineType(35) = "A"
+    TDescLineType(36) = "A"
+    TDescLineType(37) = "A"
+   
+'   Table Description Line
+    
+End Sub
+Sub NCOM_FIN_MODULE_ANNULE()
+
+' -------------------------------------------------------------------------------------------------------------------
+' FIN MODULE
+' -------------------------------------------------------------------------------------------------------------------
+
+'   Remettre Flag Vide
+    Sheets("ECRITURE").Select
+    Cells(2, 3) = "Not Uploaded"
+
+'   Remise en Etat
+    Application.DisplayStatusBar = True
+    Application.StatusBar = barreEtatEnregistrée
+    Application.DisplayStatusBar = True
+    Application.Cursor = xlDefault
+    Application.Visible = True
+    
+'   Fin application si mode Automatique et pas Delsaux
+    If UtilisateurCat = "DEV" Or ModeExec = "SCH" Then
+    Else
+       If ModeExec = "AUT" Then
+          Application.Quit
+       End If
+    End If
+    app.DisplayAlerts = True
+'   Fin de la macro
+    End
+    
+End Sub
+Sub NCOM_FIN_MODULE()
+
+' -------------------------------------------------------------------------------------------------------------------
+' FIN MODULE
+' -------------------------------------------------------------------------------------------------------------------
+
+'   Remettre Flag Vide
+    Sheets("ECRITURE").Select
+    Cells(2, 3) = NbrLigChargées & " lines posted in " & FlagTestProd
+    
+'   Remise en Etat
+    Application.DisplayStatusBar = True
+    Application.StatusBar = barreEtatEnregistrée
+    Application.DisplayStatusBar = False
+    Application.DisplayStatusBar = True
+    Application.Cursor = xlDefault
+    Application.Visible = True
+    ActiveWorkbook.Close
+    Sheets("JE").Select
+    
+'   Fin application si mode Automatique et pas Delsaux
+    If UtilisateurCat = "DEV" Or ModeExec = "SCH" Then
+    Else
+       If ModeExec = "AUT" Then
+          Application.Quit
+       End If
+    End If
+'   Fin de la macro
+    End
+    
+End Sub
+
+Sub Ross81_Upload()
+'
+' Ross81_Upload Macro
+'
+
+'
+    
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+    
+'''
+    Sheets("JE").Select
+    Range("C2").Select
+    ActiveCell.FormulaR1C1 = "=LEFT(JE!R[4]C,28)&"".prn"""
+    Sheets("Upload").Select
+
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 81"",""---"",LEFT(JE!R[5]C[1],28)&"".prn"")"
+            
+              
+      Range("A1").Select
+        ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 81"",""---"",IF(LEN(JE!R[13]C[1])<>4,""---"",IF(JE!R6C9=""STDJL"",""STDJL    0101""&JE!R[13]C[6]&JE!R[13]C[1]&JE!R[13]C[8]&JE!R[13]C[10]&""                     ""&LEFT(PROPER(JE!R[13]C[5])&REPT("" "",31),31)&LEFT(TEXT(JE!R[13]C[3],""0.00"")&REPT("" "",15),15)&TEXT(JE!R[13]C[4],""0.00""),""PAYROLL  0101""&JE!R[13]C[6]&JE!R[13]C[1]&JE!R[13]C[" & _
+        "8]&JE!R[13]C[10]&""                     ""&LEFT(PROPER(JE!R[13]C[5])&REPT("" "",31),31)&LEFT(TEXT(JE!R[13]C[3],""0.00"")&REPT("" "",15),15)&TEXT(JE!R[13]C[4],""0.00""))))" & _
+        ""
+              
+ 
+            
+    Selection.AutoFill Destination:=Range("A1:A500"), Type:=xlFillDefault
+    Range("A1:A500").Select
+    
+  '''
+    
+    Sheets("Upload").Copy After:=Sheets(Sheets.Count)
+    Sheets("Upload (2)").Select
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Cells.Replace What:="---", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+        xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+    
+On Error Resume Next
+
+Range("a1:a5000").Select
+
+Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+  
+    
+    
+Dim strName1 As String
+
+    Sheets("Upload (2)").Move
+    ChDir ":\\hdcvmap078\erp_shared\ADP\GL_UPLOAD"
+    
+    strName1 = "\\hdcvmap078\erp_shared\ADP\GL_Upload\" & Range("B1")
+    
+    ActiveWorkbook.SaveAs filename:=strName1, FileFormat:= _
+    xlTextPrinter, CreateBackup:=False
+    
+    Range("b:b").Clear
+    
+    ActiveWorkbook.Close SaveChanges:=True
+    
+    Sheets("JE").Select
+    Range("C2").Select
+    Selection.Copy
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+
+
+
+End Sub
+Sub Ross84_Upload()
+'
+' Ross84_Upload Macro
+'
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+Sheets("Upload-A").Select
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",NOW())"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""S"")"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""N"")"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[5]C[5])"
+    Range("E1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""GL"")"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",LEFT(JE!R[3]C,1))"
+    Range("G1").Select
+    Selection.NumberFormat = "General"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""02"")"
+    Range("H1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""1"")"
+    Range("I1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",YEAR(JE!R[9]C[-6]))"
+    Range("J1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[9]C[-7])"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",MONTH(JE!R[9]C[-8]))"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[9]C[-7])"
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""1"")"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""******"")"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""******"")"
+    Range("Q1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",RC[-4])"
+    Range("R1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""M"")"
+    Range("S1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[9]C[-16])"
+    Range("T1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[9]C[-17])"
+    Range("U1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[5]C[-9])"
+    Range("W1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""0"")"
+    Range("X1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""Y"")"
+    Range("Z1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",LEFT(JE!R[5]C[-23],30))"
+    Range("AA1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",JE!R[9]C[-18])"
+    Range("AB1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""0"")"
+    Range("AC1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""0"")"
+    Range("AD1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""1/1/2000"")"
+    Range("AE1").Select
+    ActiveCell.FormulaR1C1 = "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",""1/1/2000"")"
+    
+    
+Sheets("Upload-B").Select
+    Range("A1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(LEFT(JE!R8C6,5)<>""Co 84"",""---"",IF(JE!R[13]C[1]="""",""---"",NOW()))"
+    Range("B1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-1]=""---"",""---"",""S"")"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-2]=""---"",""---"",""02"")"
+    Range("D1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-3]=""---"",""---"",""1"")"
+    Range("E1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-4]=""---"",""---"",ROW())"
+    Range("F1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-5]=""---"",""---"",""ACTUAL"")"
+    Range("G1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-6]=""---"",""---"",YEAR(JE!R10C3))"
+    Range("H1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-7]=""---"",""---"",LEFT(JE!R[13]C[-2],30))"
+    Range("I1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-8]=""---"",""---"",CONCATENATE(RC[8],RC[9],RC[10],RC[11],RC[12],RC[13],RC[14]))"
+    Range("J1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-9]=""---"",""---"",""0.00"")"
+    Range("K1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-10]=""---"",""---"",JE!R10C6)"
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-11]=""---"",""---"",RC[-1])"
+    Range("M1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-12]=""---"",""---"",IF(JE!R[13]C[-9]="""",0,JE!R[13]C[-9]))"
+    Range("N1").Select
+    ActiveCell.FormulaR1C1 = _
+        "=IF(RC[-13]=""---"",""---"",IF(JE!R[13]C[-9]="""",0,JE!R[13]C[-9]))"
+    Range("O1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-14]=""---"",""---"",RC[-2])"
+    Range("P1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-15]=""---"",""---"",RC[-2])"
+    Range("Q1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-16]=""---"",""---"",""02"")"
+    Range("R1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-17]=""---"",""---"",""01"")"
+    Range("S1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-18]=""---"",""---"",JE!R[13]C[-17])"
+    Range("T1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-19]=""---"",""---"",JE!R[13]C[-13])"
+    Range("U1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-20]=""---"",""---"",JE!R[13]C[-12])"
+    Range("V1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-21]=""---"",""---"",JE!R[13]C[-11])"
+    Range("W1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-22]=""---"",""---"",JE!R[13]C[-10])"
+    Range("X1").Select
+    Selection.ClearContents
+    Range("Y1").Select
+    Selection.ClearContents
+    Range("Z1").Select
+    Selection.ClearContents
+    Range("AA1").Select
+    Selection.ClearContents
+    Range("AB1").Select
+    Selection.ClearContents
+    Range("AC1").Select
+    Selection.ClearContents
+    Range("AD1").Select
+    Selection.ClearContents
+    Range("AE1").Select
+    Selection.ClearContents
+    Range("AF1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-31]=""---"",""---"",""N"")"
+    Range("AG1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-32]=""---"",""---"",""0."")"
+    Range("AH1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-33]=""---"",""---"",""Ana1"")"
+    Range("AI1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-34]=""---"",""---"",""Ana2"")"
+    Range("AJ1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-35]=""---"",""---"",""Ana3"")"
+    Range("AK1").Select
+    ActiveCell.FormulaR1C1 = "=IF(RC[-36]=""---"",""---"",JE!R10C9)"
+    Range("A1:AK1").Select
+    Selection.AutoFill Destination:=Range("A1:AK500"), Type:=xlFillDefault
+    Range("A1:AK250").Select
+
+Sheets(Array("ECRITURE", "Upload-A", "Upload-B")).Copy
+    Cells.Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    
+    Sheets("Upload-A").Name = "GL_BATCH_TRANSACTIONS"
+    Sheets("Upload-B").Name = "GL_BATCH_TRAN_LINES"
+        
+    Sheets("GL_BATCH_TRANSACTIONS").Select
+    Cells.Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Sheets("GL_BATCH_TRAN_LINES").Select
+    Cells.Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("E5").Select
+    Cells.Replace What:="---", Replacement:="", LookAt:=xlPart, SearchOrder _
+        :=xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False _
+        , FormulaVersion:=xlReplaceFormula2
+    Sheets("ECRITURE").Visible = True
+    Sheets("ECRITURE").Select
+    Cells.Select
+    Application.CutCopyMode = False
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("B11").Select
+    
+    Dim strName3 As String
+    
+    ChDir \\ebt-fseprip-01p\datas\Transfer Finance\CHARGEMENT OPERATIONS DIVERSES\UPLOADS
+        
+    strName3 = \\ebt-fseprip-01p\datas\Transfer Finance\CHARGEMENT OPERATIONS DIVERSES\UPLOADS\ & Range("B11") & ".xls"
+    
+    ActiveWorkbook.SaveAs filename:=strName3, FileFormat:=xlExcel8
+    
+    Call CHARGERROSS
+    
+    Call Updatings
+    
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+
+
+
+
+End Sub
+
+Sub Updatings()
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+
+
+
+End Sub
+
+Sub Upload_Bridge_V1()
+
+Dim Company As String
+Dim ERP As String
+Company = Worksheets("JE").Range("F8")
+ERP = Worksheets("JE").Range("I4")
+
+If Company = "Co 86 - Prince Speciality Products (France)" Then
+
+Sheets("Upload").Select
+
+MsgBox "Company 86 does not have an upload function - Please enter manually"
+
+
+
+ElseIf Company = "Co 81 - Prince Specialty Products (US)" Then
+
+Call Ross81_Upload
+
+ElseIf Company = "Co 84 - Prince Speciality Products (Tertre)" Then
+
+Call Ross84_Upload
+
+ElseIf ERP = "IFS" Then
+
+Call IFS_Upload_V15
+
+
+End If
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+
+End Sub
