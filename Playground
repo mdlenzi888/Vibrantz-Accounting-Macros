@@ -1,0 +1,157 @@
+Sub Email_JE()
+' Emails the current Excel file to the JE approval box, with the applicable attachment
+
+Dim File
+Dim OApp As Object
+Dim OMail As Object
+Dim Signature As Variant
+Set File = Application.ActiveWorkbook
+
+Dim AnswerYes As String
+AnswerYes = MsgBox("Send email?", vbQuestion + vbYesNo)
+
+If AnswerYes = vbYes Then
+    Set OApp = CreateObject("Outlook.Application")
+    Set OMail = OApp.CreateItem(0)
+
+    With OMail
+        Signature = Environ("appdata") & "\Microsoft\Signatures\JE Approval.htm"
+        Signature = CreateObject("Scripting.FileSystemObject").GetFile(Signature).OpenAsTextStream(1, -2).ReadAll
+
+        .To = "jeapproval@vibrantz.com"
+        .Subject = File.Name
+        .Attachments.Add File.FullName
+        .HTMLBody = Signature
+        .Send
+    End With
+    
+    MsgBox ("Email sent.")
+End If
+
+End Sub
+
+Sub Multi_IFS_Upload()
+' Saves IFS JE Excel files that contain more than one JE Upload tab as individual CSV files
+
+Application.ScreenUpdating = False
+Application.DisplayAlerts = False
+Application.EnableEvents = False
+
+For Each ws In ActiveWorkbook.Worksheets
+    If ws.Name Like "JE *" Then
+        ws.Select
+        
+        Range("B12").Select
+        ActiveCell.FormulaR1C1 = "=VLOOKUP(R[-4]C[4],CPV!C[22]:C[24],3,0)"
+        
+        Range("C6").Select
+        Selection.Copy
+        
+        ActiveSheet.Next.Activate
+
+'        Dim Upload
+'        Upload = ActiveSheet
+        
+        Range("Q1").Select
+        Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+                :=False, Transpose:=False
+        
+            Range("A1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF('" & ws.Name & "'!R[13]C[1]="""",""--"",IF(AND(OR('" & ws.Name & "'!R[13]C[3]="""",'" & ws.Name & "'!R[13]C[3]=0)*OR('" & ws.Name & "'!R[13]C[4]="""",'" & ws.Name & "'!R[13]C[4]=0)),""--"",LEFT('" & ws.Name & "'!R[13]C[1],5)))"
+            Range("B1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-1]=""--"",""--"",IF(+'" & ws.Name & "'!R[13]C[5]="""",""--"",+'" & ws.Name & "'!R[13]C[5]))"
+            Range("C1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-2]=""--"",""--"",IF(+'" & ws.Name & "'!R[13]C[6]="""",""--"",+'" & ws.Name & "'!R[13]C[6]))"
+            Range("C1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-2]=""--"",""--"",IF(+'" & ws.Name & "'!R[13]C[6]="""",""--"",+'" & ws.Name & "'!R[13]C[6]))"
+            Range("D1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-3]=""--"",""--"",IF(+'" & ws.Name & "'!R[13]C[7]="""",""--"",+'" & ws.Name & "'!R[13]C[7]))"
+            Range("G1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-6]=""--"",""--"",IF(+'" & ws.Name & "'!R[13]C[6]="""",""--"",+'" & ws.Name & "'!R[13]C[6]))"
+            Range("K1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-10]=""--"",""--"",IF(+'" & ws.Name & "'!R10C6="""",""--"",+'" & ws.Name & "'!R10C6))"
+            Range("L1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-11]=""--"",""--"",IF(OR(+'" & ws.Name & "'!R[13]C[-8]="""",+'" & ws.Name & "'!R[13]C[-8]=0),""--"",+'" & ws.Name & "'!R[13]C[-8]))"
+            Range("M1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-12]=""--"",""--"",IF(OR(+'" & ws.Name & "'!R[13]C[-8]="""",+'" & ws.Name & "'!R[13]C[-8]=0),""--"",+'" & ws.Name & "'!R[13]C[-8]))"
+            Range("O1").Select
+            ActiveCell.FormulaR1C1 = _
+                "=IF(RC[-14]=""--"",""--"",IF(OR(+'" & ws.Name & "'!R[13]C[-9]="""",+'" & ws.Name & "'!R[13]C[-9]=0),""--"",+'" & ws.Name & "'!R[13]C[-9]))"
+            Range("P1").Select
+            ActiveCell.FormulaR1C1 = "=IF(RC[-15]=""--"",""--"",'" & ws.Name & "'!R10C3)"
+            Rows("1:1").Select
+            Selection.AutoFill Destination:=Rows("1:1000"), Type:=xlFillDefault
+        
+        Dim Region As String
+        Region = ws.Range("B12")
+        
+        If Region = "ROW" Then
+            Range("P:P").Select
+            Selection.NumberFormat = "dd/mm/yyyy"
+        Else
+            Range("P:P").Select
+            Selection.NumberFormat = "mm/dd/yyyy"
+        End If
+    
+        
+        'Copy the Upload file, this will leave the formula filled Upload in place for re-use. Copy and paste as values so we can manipulate.
+        ActiveSheet.Copy
+        Cells.Select
+        Selection.Copy
+        Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+            :=False, Transpose:=False
+        
+        
+        'Now get rid of any undesirables, characters we dont like, etc
+        Cells.Replace What:="--", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+                xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+            Cells.Replace What:="#", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+                xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+            Cells.Replace What:=",", Replacement:="", LookAt:=xlPart, SearchOrder:= _
+                xlByRows, MatchCase:=False, SearchFormat:=False, ReplaceFormat:=False
+        Application.CutCopyMode = False
+        
+        
+        'Ensure any company numbers remain 3 digit
+        Columns("G:G").Select
+            Selection.NumberFormat = "@"
+        
+        
+        'Now delete any lines that have a blank in column A
+        On Error Resume Next
+        Range("a1:a5000").Select
+        Selection.SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+        
+        
+        'Now save as CSV file
+        Dim path As String
+        Dim strName As String
+        
+        path = "C:\Users\" & Environ("username") & "\IFS Uploads"
+        ChDir path
+    
+        strName = path & "\" & Range("q1") & ".csv"
+    
+        ActiveWorkbook.SaveAs filename:=strName, FileFormat:=xlCSV
+
+        Range("q:q").Clear
+    
+        ActiveWorkbook.Close SaveChanges:=True
+        Range("q:q").Clear
+    End If
+Next ws
+
+Application.ScreenUpdating = True
+Application.DisplayAlerts = True
+Application.EnableEvents = True
+
+End Sub
