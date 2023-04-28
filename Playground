@@ -155,3 +155,45 @@ Application.DisplayAlerts = True
 Application.EnableEvents = True
 
 End Sub
+
+Sub Update_COA_Tabs()
+' Opens all selected files and performs the specified function for each one
+
+    Dim coa As Range
+
+    Dim fDialog As FileDialog
+    Set fDialog = Application.FileDialog(msoFileDialogFilePicker)
+    With fDialog
+        .AllowMultiSelect = False
+        .Title = "Please select the template file to use"
+        .Filters.Clear
+        .Filters.Add "Excel files", "*.xlsx"
+        
+        If .Show = True Then
+            Dim coaFile As String
+            coaFile = .SelectedItems(1)
+            
+            Workbooks.Open (coaFile)
+            ActiveSheet.Cells.Copy
+        End If
+        
+        .AllowMultiSelect = True
+        .Title = "Please select the files you would like to update"
+        
+        If .Show = True Then
+            Dim fPath As Variant
+            For Each fPath In .SelectedItems
+                Workbooks.Open (fPath)
+                
+                For Each ws In ActiveWorkbook.Worksheets
+                    If ws.Name Like "COA*" Then
+                        ws.Cells.PasteSpecial Paste:=xlPasteAll
+                    End If
+                Next ws
+                
+                ActiveWorkbook.Close SaveChanges:=True
+            Next fPath
+        End If
+    End With
+    MsgBox "Finished Updated"
+End Sub
